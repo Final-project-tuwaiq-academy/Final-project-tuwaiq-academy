@@ -1,0 +1,75 @@
+users
+{
+"user_name":"Tameem",
+"phone":"0500052090",
+"email":"t@t.com",
+"password":"1122",
+"balance":11000
+}
+============================================================
+posts
+{
+    "post":
+    {
+        "title":"post_1",
+        "city":"Riyadh",
+        "content":"Hi My Name Tameem",
+        "images":"http://localhost:8080/posts",
+        "post_type":"Cars"
+    },
+    "user_id":1
+}
+============================================================
+post_price
+{
+    "post_price":
+    {
+        "price":5000
+    },
+    "post_id":1,
+    "user_id":1
+}
+============================================================
+Notifications
+{
+    "notifications":
+    {
+        "title":"notifications_1",
+        "been_seen":"true"
+    },
+    "post_id":1,
+    "user_id":1
+}
+============================================================
+Message
+{
+    "message":
+    {
+        "message_number":1,
+        "seen":"true",
+        "content":"Hi my name tameem"
+    },
+    
+    "sender_id":1,
+    "receiver_id":1
+}
+===============================================================
+Favorite
+{
+    "favorite":
+    {
+        
+    },
+    "post_id":1,
+    "user_id":1
+}
+==================================================================
+Comments
+{
+    "comments":
+    {
+        "content":"Hi"
+    },
+    "post_id":1,
+    "user_id":1
+}
