@@ -1,7 +1,13 @@
-export const setUsers = (users) => {
+export const addUsers = (user) => {
     return {
-      type: "SET_USERS",
-      payload: users,
+      type: "ADD_USERS",
+      payload: user,
+    };
+  };
+
+  export const removeUsers = () => {
+    return {
+      type: "REMOVE_USERS"
     };
   };
 

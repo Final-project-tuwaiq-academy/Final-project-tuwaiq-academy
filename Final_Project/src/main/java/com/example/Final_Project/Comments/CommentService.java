@@ -5,6 +5,7 @@ import com.example.Final_Project.Posts.PostRepository;
 import com.example.Final_Project.Users.User;
 import com.example.Final_Project.Users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -31,10 +32,13 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public Comment getComment(String id){
-        int comment_id = Integer.valueOf(id);
-        return commentRepository.findById(comment_id).orElse(null);
+    public List<Comment>  getCommentsInPost(String id){
+//        int post_id = Integer.valueOf(id);
+
+        return commentRepository.findAllByCAndComment_id(Integer.valueOf(id));
     }
+
+
 
     public Comment addComment(Comment comment, int user_id, int post_id){
         User user = userRepository.findById(user_id).orElse(null);

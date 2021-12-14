@@ -27,8 +27,9 @@ public class CommentController {
     }
 
     @GetMapping("/{id}")
-    public Comment getComment(@PathVariable String id){
-        return commentService.getComment(id);
+    public List<Comment> getComment(@PathVariable String id){
+
+        return commentService.getCommentsInPost(id);
     }
 
     @PostMapping
