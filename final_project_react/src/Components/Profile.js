@@ -58,7 +58,7 @@ function Profile() {
 <div className="container">
 
 <div className="row">
-    <button className="col Edit_profile_2" onClick={()=>{window.location.replace("/login");}}>
+    <button className="col Edit_profile_2" onClick={()=>{window.location.replace("/profile");}}>
       <p className="text-center text-white mt-3"><b>Acount information</b></p>
     </button>
 

@@ -58,9 +58,9 @@ function Auctions() {
         <p className="card-text m-0"><small>Last price: <b>{post.city}</b></small></p>
         <p className="card-text m-0"><small>By  <b>@{post.date}</b></small></p>
         
-        <p className='text-center mt-5'>
-    <input type="number" class="form-control w-25" id="inputPassword2" placeholder="Password"/>
-    <input type="button" class="btn btn-primary mb-2 mt-1 w-25" value='Submit'/>
+        <p className='text-center'>
+    <input type="number" className='post_txt'  placeholder="Password"/>
+    <input type="button" className='post_btn' value='Submit'/>
         </p>
       </div>
     </div>

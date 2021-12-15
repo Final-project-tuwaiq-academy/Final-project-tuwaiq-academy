@@ -561,3 +561,16 @@ a.article:hover {
   border: 1px solid #9A8C98;
   border-radius: 10px 10px 10px 10px;
 }
+.post_txt{
+  border-radius: 5px 0px 0px 5px;
+  border: none;
+  border-right:none ;
+}
+.post_btn{
+  border-radius: 0px 5px 5px 0px;
+  border-left:none ;
+  border: none;
+
+  color: white;
+  background-color: #22223b;
+}

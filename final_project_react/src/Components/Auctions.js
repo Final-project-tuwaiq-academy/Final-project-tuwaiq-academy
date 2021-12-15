@@ -11,6 +11,7 @@ function Auctions() {
   const [city, setCity] = useState('');
   const [type, setType] = useState('');
   const [price, setPrice] = useState('');
+  const [postsTime, setpostsTime] = useState([]);
 
 
   useEffect(() => {
@@ -26,9 +27,9 @@ function Auctions() {
       ])
       .then(r => {
         setPrice(r[0].data);
-         });}
-  
-  ,[]);
+         });
+
+        }  ,[]);
 
 const getPostPrice =(post_id)=>{
 for(let i = 0 ; i < price.length ;i++){
@@ -39,9 +40,27 @@ for(let i = 0 ; i < price.length ;i++){
 return 0
 }
 
+var timer =  setInterval(function() {
+
+}, 1000);
+
+
+// var endDate = new Date("Dec 15, 2021 00:00:00").getTime();
+// let now = new Date().getTime(); 
+// let t = endDate - now; 
+
+// let hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+// let mins = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+// let secs = Math.floor((t % (1000 * 60)) / 1000);
+// console.log("dd")
+
+
   return (
 
 <>
+
+
+
 {/* ----------------------Search------------------------------- */}
 
 <div className=" mt-5 m-lg-5">
@@ -99,7 +118,9 @@ return 0
       <div className="col-md-8">
         <div className="card-body">
           <h5 className="card-title"><b>{element.title}</b></h5>
-          <p className="card-text"><small className="">Last price: <b>{getPostPrice(element.post_id)} </b></small><br/> <small className=""> Remaining time: <b>{element.city}</b></small></p>
+          <p className="card-text"><small className="">Last price: <b>{getPostPrice(element.post_id)} </b></small><br/> 
+          {/* <small className=""> Remaining time: <b>{element.city}</b></small> */}
+          </p>
         </div>
       </div>
       <div className="col-md-4">
