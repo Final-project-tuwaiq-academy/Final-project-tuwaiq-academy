@@ -4,20 +4,34 @@ import { useState } from "react";
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+
 
 
 function Auctions() {
 
   const [post, setPost] = useState();
   const [comment, setComment] = useState();
+  const state = useSelector((state) => {
+    return {
+      user: state.userReducer.user,
+      token: state.userReducer.token,
+    };
+  });
+
+
 
   let { id } = useParams();
 
 
 
   useEffect(() => {
+
+const config = {
+  headers: { Authorization: `Bearer ${state.token}` }
+};
     axios.all([
-      axios.get(`http://localhost:8080/posts/${id}`)
+      axios.get(`http://localhost:8080/posts/${id}`, config)
     ])
     .then(r => {
       setPost(r[0].data);
@@ -28,7 +42,6 @@ function Auctions() {
       ])
       .then(r => {
         setComment(r[0].data);
-        console.log(r[0].data)
          });
       }
   
@@ -98,13 +111,13 @@ function Auctions() {
 </div>
            )})}
            <form>
-  <div class="m-4">
-    <label for="exampleInputEmail1" class="form-label">Write comment</label>
-    <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  rows="4" cols="50"></textarea>
+  <div className="m-4">
+    <label htmlFor="exampleInputEmail1" className="form-label">Write comment</label>
+    <textarea className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  rows="4" cols="50"></textarea>
   </div>
 
 
- <p className='text-center'><button type="submit" class="btn btn-primary">Submit</button></p> 
+ <p className='text-center'><button type="submit" className="btn btn-primary">Submit</button></p> 
 </form>
            </div>  
 </>

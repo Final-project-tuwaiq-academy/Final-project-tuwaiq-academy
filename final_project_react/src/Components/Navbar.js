@@ -1,9 +1,40 @@
 import '../App.css';
 import Logo from '../Img/m.png'
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useState } from "react";
+import axios from 'axios'
+
 
 function Navbar() {
+
+    const [user, setUser] = useState();
+
+
+    const state = useSelector((state) => {
+        return {
+          user: state.userReducer.user,
+        };
+      });
+
+
+      useEffect(() => {
+        if(state.user.user_id !== undefined){
+        axios.all([
+          axios.get(`http://localhost:8080/users/${state.user.user_id}`)
+        ])
+        .then(r => {
+          setUser(r[0].data);
+           });
+        }
+
+          }
+      
+      ,[]);
+
   return (
 <div>
+
     <nav className="navbar navbar-expand-lg navbar-dark main_navbar">
         <div className="container-fluid">
             <a href="#" className="navbar-brand">
@@ -20,7 +51,11 @@ function Navbar() {
 
                 </div>
                 <div className="navbar-nav ms-auto">
-                    <a href="/login" className="nav-item nav-link text-white"><b>Login</b></a>
+                    {user === undefined ?<a href="/login" className="nav-item nav-link text-white"><b>Login</b></a> :<>
+                    <a  className="nav-item nav-link text-white"> <b>@{user.user_name}</b></a>
+                    <a  className="nav-item nav-link text-white"><b>{user.balance}$</b></a>
+                    <a href="/" className="nav-item nav-link text-white" onClick={()=>{localStorage.clear()}}><b>Logout</b></a>
+                    </> }
                 </div>
             </div>
         </div>

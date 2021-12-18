@@ -7,10 +7,13 @@ import Login from './Components/Login';
 import Sign_Up from './Components/Sign_Up';
 import Post from './Components/Post'
 import Profile from './Components/Profile';
+
+
+
 function App() {
+
   return (
     <div className="App">
-
     <Navbar/>
     <BrowserRouter>
       <Routes>

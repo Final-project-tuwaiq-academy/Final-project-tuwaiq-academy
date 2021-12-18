@@ -32,7 +32,7 @@ public class UserController {
 
     @PostMapping
     public void addUser(@RequestBody User user){
-         userService.addUser(user);
+        userService.addUser(user);
     }
 
     @DeleteMapping("/{id}")
@@ -47,4 +47,16 @@ public class UserController {
     }
 
 
+}
+class Form {
+    private User user;
+    private Long role_id;
+
+    public User getUser() {
+        return user;
+    }
+
+    public Long getRole_id() {
+        return role_id;
+    }
 }

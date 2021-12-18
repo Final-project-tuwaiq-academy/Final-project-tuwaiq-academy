@@ -1,6 +1,8 @@
 package com.example.Final_Project.Users;
 
 import javax.persistence.*;
+import com.example.Final_Project.Role.*;
+import java.util.*;
 
 
 @Entity
@@ -16,17 +18,30 @@ public class User {
     private String Password;
     private float balance;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Role> roles = new ArrayList<>();
+
+
 
     public User() {
     }
 
-    public User(int user_id, String user_name, int phone, String email, String password, float balance) {
+    public User(int user_id, String user_name, int phone, String email, String password, float balance, List<Role> roles) {
         this.user_id = user_id;
         this.user_name = user_name;
         this.phone = phone;
         this.email = email;
-        this.Password = password;
+        Password = password;
         this.balance = balance;
+        this.roles = roles;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public float getBalance() {
