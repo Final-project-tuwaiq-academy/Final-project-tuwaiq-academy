@@ -79,7 +79,8 @@ public class UserService implements UserDetailsService {
             user.setBalance(data.getBalance());
             user.setEmail(data.getEmail());
             user.setPhone(data.getPhone());
-            user.setPassword(data.getPassword());
+            user.setPassword(passwordEncoder.encode(data.getPassword()));
+
             userRepository.save(user);
             }
         }

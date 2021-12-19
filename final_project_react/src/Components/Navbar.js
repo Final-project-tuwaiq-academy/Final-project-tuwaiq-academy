@@ -45,7 +45,7 @@ function Navbar() {
             </button>
             <div className="collapse navbar-collapse" id="navbarCollapse">
                 <div className="navbar-nav ms-auto">
-                    <a href="#" className="nav-item nav-link active text-white"><b>Home</b></a>
+                    <a href="/" className="nav-item nav-link active text-white"><b>Home</b></a>
                     <a href="/auctions" className="nav-item nav-link text-white"><b>Auctions</b></a>
                     <a href="/profile" className="nav-item nav-link text-white"><b>Profile</b></a>
 

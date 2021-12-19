@@ -49,15 +49,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.setFilterProcessesUrl("/login");
 
 //        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+//        http.cors().and()
+//                .authorizeRequests()
+//                .antMatchers(HttpMethod.OPTIONS).permitAll();
         http.cors().and().csrf().disable();
-        http.cors().and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS).permitAll();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         // Define the authorization patterns below
-//        http.authorizeRequests().anyRequest().permitAll();
-        http.authorizeRequests().antMatchers(POST, "/login").permitAll();
+        http.authorizeRequests().anyRequest().permitAll();
+
+//        http.authorizeRequests().antMatchers(POST, "/login").permitAll();
 //        http.authorizeRequests().antMatchers(POST,"/users/").permitAll();
 //        http.authorizeRequests().antMatchers(POST,"/roles/").permitAll();
 //        http.authorizeRequests().antMatchers( "/posts/{id}").hasAnyAuthority("USER");
