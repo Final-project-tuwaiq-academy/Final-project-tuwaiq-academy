@@ -36,11 +36,11 @@ function Login() {
   <div  className='login_div_2'>
   <p className='error_login'>{error}</p>
   <div className="mb-3">
-    <label htmlFor="exampleInputEmail1" className="form-label text-white"><b>User Name</b></label>
+    <label htmlFor="exampleInputEmail1" className="form-label text-white">User Name</label>
     <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={(e)=>{setUserName(e.target.value)}} />
   </div>
   <div className="mb-3">
-    <label htmlFor="exampleInputPassword1" className="form-label text-white"><b>Password</b></label>
+    <label htmlFor="exampleInputPassword1" className="form-label text-white">Password</label>
     <input type="password" className="form-control" id="exampleInputPassword1" onChange={(e)=>{setPassword(e.target.value)}}/>
     <div id="emailHelp" className="form-text mt-1"><a href='#'>forgot password?</a></div>
 

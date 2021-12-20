@@ -70,10 +70,63 @@ const cheekUser =()=>{
   
   return (
 <>
+<div className='container_User_Post'>
+
+<div className="wrapper">
+        <nav id="sidebar">
+            <div className="sidebar-header">
+                <h3>User Profile</h3>
+            </div>
+
+            <ul className="list-unstyled components">
+
+                <li>
+                    <a href="/profile">Acount information</a>
+                </li>
+                
+                <li>
+
+                </li>
+                <li>
+                    <a href="/user_post">My posts</a>
+                </li>
+                <li>
+                    <a href="#">Bargains </a>
+                </li>
+                <li>
+                    <a href="/payment">Payment</a>
+                </li>
+            </ul>
+
+        </nav>
+
+ 
+
+
+  </div>
+
+
+
+{  posts === undefined ? '' :
+      cheekUser() === 0 ?
+      <header class="bg-dark py-5 ">
+    <div class="container px-5">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-6">
+                <div class="text-center my-5">
+                    <h1 class="display-5 fw-bolder text-white mb-2">You don't have any posts</h1>
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center mt-5">
+                        <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started with new post</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header> :
+
 <div className='container container_Auctions'>
-   {  posts === undefined ? '' :
-      cheekUser() === 0 ? <h1>You don't have any posts</h1> :
-     posts === undefined ? '' :
+   
+    { posts === undefined ? '' :
    posts.map((element, index) => {
       if(element.user.user_id === state.user.user_id){
    return (
@@ -81,11 +134,8 @@ const cheekUser =()=>{
       <div className="container">
          <div className="row">
             <div className="cols-sm-6 cols-md-6 cols-lg-6">
-               <div className="food-card food-card--vertical">
-                  <div className="food-card_img">
-                     <img src={element.images} alt="" />
-                     <a href={`post/${element.post_id}`}><i className="fa fa-heart"></i></a>
-                  </div>
+               <div className="food-card food-card--vertical-User-Post">
+                 
                   <div className="food-card_content">
                      <div className="food-card_title-section">
                         <a href={`post/${element.post_id}`} className="food-card_title">{element.title}</a>
@@ -102,11 +152,20 @@ const cheekUser =()=>{
                               <span className="badge badge-success">Open</span>
                            </div>
                         </div>
-                        <hr/>
-                        <div className="space-betweenx text-center">
-                           <div className="food-card_price mr-5 text-center">
+                        <div className="food-card_price mr-5 text-center">
                               <span className=''>{getPostPrice(element.post_id)}$</span>
                            </div>
+                        <hr/>
+                        <div className="">
+                        <button type="button" class="btn btn-outline-primary btn-User-Post" onClick={()=>{
+
+                        }}>Edit Post</button>
+                        <button type="button" class="btn btn-outline-danger btn-User-Post mt-2" onClick={()=>{
+                               axios.delete(`http://localhost:8080/posts/${element.post_id}`)
+                              .then(() => {});
+                              window.location.reload();
+                        }}>Delete Post</button>
+
                            </div>
                         </div>
                      </div>
@@ -116,11 +175,13 @@ const cheekUser =()=>{
          </div>
    </section>
    )}
+   
    })}
+   </div>
 
-</div>
-</>
-  );
+
+
 }
+</div></>);}  
 
 export default UserPosts;

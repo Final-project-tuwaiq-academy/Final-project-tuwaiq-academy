@@ -1,5 +1,6 @@
 package com.example.Final_Project.Posts;
 
+import com.example.Final_Project.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,10 +42,9 @@ public class PostController {
 
 
     @PutMapping("/{id}")
-    public void updatePost(@PathVariable String id, @RequestBody Post data){
+    public void updateUser(@PathVariable String id, @RequestBody Post data){
         postService.updatePost(id, data);
     }
-
 
 }
 class Form{

@@ -9,6 +9,9 @@ import Post from './Components/Post'
 import Profile from './Components/Profile';
 import UserPosts from './Components/UserPosts';
 import Home from './Components/Home';
+import Payment from './Components/Payment';
+import AddPost from './Components/AddPost';
+import EditPost from './Components/EditPost';
 
 
 
@@ -25,6 +28,9 @@ function App() {
         <Route path="/post/:id"  element={<Post />} />
         <Route path="/profile"  element={<Profile />} />
         <Route path="/user_post"  element={<UserPosts />} />
+        <Route path="/add_post"  element={<AddPost />} />
+        <Route path="/payment"  element={<Payment />} />
+        <Route path="/edit_post/:id"  element={<EditPost />} />
         <Route path="/"  element={<Home />} />
 
       </Routes>

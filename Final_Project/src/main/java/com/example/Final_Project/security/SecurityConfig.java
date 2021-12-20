@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(), userRepository);
         customAuthenticationFilter.setFilterProcessesUrl("/login");
 
+
 //        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
 //        http.cors().and()
 //                .authorizeRequests()
@@ -64,8 +65,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.authorizeRequests().antMatchers( "/posts/{id}").hasAnyAuthority("USER");
 //        http.authorizeRequests().antMatchers( "/users/{id}").hasAnyAuthority("USER");
 //        http.authorizeRequests().antMatchers( "/users").hasAnyAuthority("ADMIN");
-
-
 //        http.authorizeRequests().antMatchers(POST, "/admin/**").hasAnyAuthority("ADMIN");
 //        http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);

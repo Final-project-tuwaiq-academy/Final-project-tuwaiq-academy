@@ -7,8 +7,7 @@ function Footer() {
     <div className="row">
       <div className="col-sm-12 col-md-6">
         <h6>About</h6>
-        <p className="text-justify">What is an online auction?
-The electronic auction platform is one of the smart solutions developed and operated by Thiqa Company, which enables those interested in auctions to participate in auctions electronically without the need to come to the auction site and complete all financial transactions safely and electronically and in accordance with the laws of holding auctions, buying and selling in the Kingdom of Saudi Arabia. The platform serves government and private agencies in liquidating their assets and managing auctions electronically.</p>
+        <p className="text-justify">What is an online auction? The electronic auction platform is one of the smart solutions developed and operated by Thiqa Company, which enables those interested in auctions to participate in auctions electronically without the need to come to the auction site and complete all financial transactions safely and electronically and in accordance with the laws of holding auctions, buying and selling in the Kingdom of Saudi Arabia. The platform serves government and private agencies in liquidating their assets and managing auctions electronically.</p>
       </div>
 
       <div className="col-xs-6 col-md-3">

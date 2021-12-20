@@ -71,6 +71,8 @@ const cheekUser =(post_id)=>{
   }
   return 0
   }
+
+
   
   
   
@@ -80,7 +82,8 @@ const cheekUser =(post_id)=>{
   return (
 <>
 {/* ----------------------Search------------------------------- */}
-<div className=" mt-5 m-lg-5">
+<div className='bg-white py-5'>
+<div className=" mt-5 m-lg-5 ">
    <input type="text" className="form-control Text_search" id="inputAddress" placeholder="Search by auction name" onChange={(e)=>{setSearch(e.target.value);}}/>
 </div>
 <div className=' container_Auctions_Search '>
@@ -112,8 +115,8 @@ const cheekUser =(post_id)=>{
       </select>
    </div>
 </div>
+</div>
 {/* ----------------------Search------------------------------- */}
-<hr className='ml-5 mr-5'/>
 <div className='container container_Auctions'>
    {  posts === undefined ? '' :
    posts.map((element, index) => {
