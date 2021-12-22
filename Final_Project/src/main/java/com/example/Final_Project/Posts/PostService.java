@@ -35,7 +35,7 @@ public class PostService {
         this.commentRepository = commentRepository;
         this.favoriteRepository = favoriteRepository;
         this.notificationsRepository = notificationsRepository;
-        post_PriceRepository = post_priceRepository;
+        this.post_PriceRepository = post_priceRepository;
     }
 
     public List<Post> getPosts(){
@@ -52,15 +52,16 @@ public class PostService {
 
 
         post.setUser(user);
-
-        DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd-HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        post.setDate(date.format(now));
+        post.setDate(date.format(now.plusDays(1)));
+
 
         Post_Price postPrice = new Post_Price();
         postPrice.setPost(post);
         postPrice.setUser(user);
         postPrice.setPrice(post.getPrice());
+        post.setState("Open");
         postRepository.save(post);
         post_PriceService.addPost_Price(postPrice, post.getPost_id(), user.getUser_id());
     }
@@ -70,7 +71,10 @@ public class PostService {
 
     public void deletePost(String id){
         int post_id = Integer.valueOf(id);
-
+        commentRepository.deleteAllByPost_id(post_id);
+        favoriteRepository.deleteAllByPost_id(post_id);
+        notificationsRepository.deleteAllByPost_id(post_id);
+        post_PriceRepository.deleteAllByPost_id(post_id);
         postRepository.deleteById(post_id);
     }
 
@@ -84,6 +88,7 @@ public class PostService {
             post.setCity(data.getCity());
             post.setPost_type(data.getPost_type());
             post.setImages(data.getImages());
+            post.setState(data.getState());
             postRepository.save(post);
             }
         }

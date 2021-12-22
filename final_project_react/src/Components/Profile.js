@@ -9,7 +9,6 @@ import axios from 'axios'
 
 function Profile() {
 
-  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
@@ -38,30 +37,8 @@ function Profile() {
       
         }},[]);
 
-        const usernameIsValid = (username) => {
-          return /^[0-9a-zA-Z_.-]+$/.test(username);
-      }
+     
       
-      const validateEmail = (email) => {
-        return String(email)
-          .toLowerCase()
-          .match(
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          );
-      };
-      
-      function validatePassword(password) {
-      
-        var re = /[a-z]\d|\d[a-z]/i;
-        return re.test(password) && password.length > 3;
-      
-      }
-      
-      const phoneIsValid = (phone) => {
-        var regex = new RegExp(/^(009665|9665|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/);
-        return regex.test(phone); 
-      }
-
   return (
 <div className='container_Profile'>
 
@@ -119,7 +96,7 @@ function Profile() {
   <div className="mb-3">
   
     <label htmlFor="exampleInputEmail1" className="form-label text-white" >UserName</label>
-    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={user.user_name} onChange={(e)=>{setUserName(e.target.value)}}/>
+    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={user.user_name} disabled/>
   </div>
   <div className="mb-3">
     <label htmlFor="exampleInputPassword1" className="form-label text-white">Email address</label>
@@ -139,21 +116,18 @@ function Profile() {
   </div>
 
   <p className='btn_login'><button type="button" className="btn btn-primary nohover mt-5" onClick={()=>{
-
-    if(! usernameIsValid(userName)){setError('Username is incorrect'); return;}
-    if(! validateEmail(email)){setError('Email is incorrect'); return;}
-    if(! phoneIsValid(phone)){setError('Phone is incorrect'); return;}
-    if(! validatePassword(password)){setError('Password is incorrect'); return;}
     if(password !== rePassword){setError('There is no match in the password'); return;}
-    user.user_name = userName;
     user.email = email;
     user.phone = phone;
     user.password = password;
 
     axios.put(`http://localhost:8080/users/${user.user_id}`,user)
-                                    .then(response => {});
-                                    setError('')
-                                    window.location.reload();
+    .then(response => {
+    if(response.data !== 'ok'){
+     setError(response.data);
+      return
+    }else{  window.location.reload(); }
+});
     
   }}>Save changes</button></p>
   </div>

@@ -31,8 +31,8 @@ public class UserController {
     }
 
     @PostMapping
-    public void addUser(@RequestBody User user){
-        userService.addUser(user);
+    public ResponseEntity<String> addUser(@RequestBody User user){
+        return userService.addUser(user);
     }
 
     @DeleteMapping("/{id}")
@@ -42,8 +42,8 @@ public class UserController {
 
 
     @PutMapping("/{id}")
-    public void updateUser(@PathVariable String id, @RequestBody User data){
-        userService.updateUser(id, data);
+    public ResponseEntity<String> updateUser(@PathVariable String id, @RequestBody User data){
+        return userService.updateUser(id, data);
     }
 
 

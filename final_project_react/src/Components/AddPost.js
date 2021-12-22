@@ -5,7 +5,6 @@ import axios from 'axios'
 import { useSelector } from "react-redux";
 
 
-
 function AddPost() {
 
   const [title, settitle] = useState();
@@ -38,6 +37,7 @@ function AddPost() {
       }
 
         },[]);
+
 
   return (<>
 

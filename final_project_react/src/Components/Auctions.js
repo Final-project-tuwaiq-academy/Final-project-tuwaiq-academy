@@ -22,9 +22,9 @@ function Auctions() {
     };
   });
 
-
-
-  useEffect(() => {
+  useEffect(()=>{
+   let myInterval = setInterval(() => {
+           
     if(state.user.user_id !== undefined){
       axios.all([
         axios.get(`http://localhost:8080/users/${state.user.user_id}`)
@@ -40,8 +40,34 @@ function Auctions() {
       axios.get('http://localhost:8080/posts')
     ])
     .then(r => {
+      for(let i = 0 ; i < r[0].data.length ; i++){
+         var endTime = new Date(r[0].data[i].date) / 1000;
+         var elapsed = new Date() / 1000;
+         var totalSec =  endTime - elapsed;
+         var h = parseInt( totalSec / 3600 )
+         if(h < 0){h = "00"}
+         else if(h < 10 ){h = '0'+h.toString();}
+
+         var m = parseInt( totalSec / 60 ) % 60;
+         if(m < 0){m = "00"}
+         else if(m < 10 ){m = '0'+m.toString();}
+
+         var s = parseInt(totalSec % 60, 10);
+         if(s < 0){s = "00"}
+         else if(s < 10 ){s = '0'+s.toString();}
+         
+         var result = h + ":" + m + ":" + s;
+         r[0].data[i].date = result;
+         if(r[0].data[i].date === "00:00:00"){
+            
+
+            r[0].data[i].state = "Close";
+            axios.put(`http://localhost:8080/posts/${r[0].data[i].post_id}`, r[0].data[i])
+            .then(response => {});
+         }
+      }
       setPosts(r[0].data);
-       });
+   });
       
        axios.all([
         axios.get(`http://localhost:8080/post_price`)
@@ -51,7 +77,13 @@ function Auctions() {
          });
 
         
-        }  ,[]);
+      }, 1000)
+      return ()=> {
+        };
+  },[]);
+
+
+
 
 const getPostPrice =(post_id)=>{
 for(let i = 0 ; i < price.length ;i++){
@@ -120,7 +152,7 @@ const cheekUser =(post_id)=>{
 <div className='container container_Auctions'>
    {  posts === undefined ? '' :
    posts.map((element, index) => {
-   if(element.title.startsWith(search)  || search === '' && (city === element.city || city === '') && (type === element.post_type || type === '') ){
+   if(element.state == 'Open' && ( element.title.startsWith(search)  || search === '') && (city === element.city || city === '') && (type === element.post_type || type === '') ){
    return (
    <section className="main-content" key={index}>
       <div className="container">
@@ -141,10 +173,10 @@ const cheekUser =(post_id)=>{
                      <div className="food-card_bottom-section">
                         <div className="space-between">
                            <div>
-                              <span className="fa fa-clock-o"></span> 02:45:21
+                              <span className="fa fa-clock-o"></span> {element.date}
                            </div>
                            <div className="pull-right">
-                              <span className="badge badge-success">Open</span>
+                           {element.state == "Open" ? <span className="badge badge-success">{element.state}</span> : <span className="badge badge-danger">{element.state}</span>}
                            </div>
                         </div>
                         <hr/>

@@ -83,7 +83,7 @@ function Payment() {
             <li class="active-payment"><a href="#">Recharge</a></li>
         </ul>
     </div>
-    <form className='form-payment'> 
+    <div className='form-payment'> 
         
          <span id="card-header">Add your card:</span>
         <div class="row-1">
@@ -109,14 +109,16 @@ function Payment() {
 
         if(balance < 0){setError('Username is incorrect'); return;}
 
-user.balance =parseInt(user.balance) + parseInt(balance);
-axios.put(`http://localhost:8080/users/${user.user_id}`,user)
-                                .then(response => {});
+          user.balance =parseInt(user.balance) + parseInt(balance);
+          axios.put(`http://localhost:8080/users/${user.user_id}`,user)
+                                .then(response => {
+                                  console.log(response)
+                                });
                                 setError('')
                                 window.location.reload();
 
 }}><b>Add card</b></button>
-    </form>
+    </div>
 </div>
   
 }

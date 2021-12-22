@@ -12,9 +12,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int user_id;
+
+    @Column(unique=true)
     private String user_name;
-    private int phone;
+
+    private String phone;
+
+    @Column(unique=true)
     private String email;
+
     private String Password;
     private float balance;
 
@@ -24,7 +30,7 @@ public class User {
     public User() {
     }
 
-    public User(int user_id, String user_name, int phone, String email, String password, float balance, List<Role> roles) {
+    public User(int user_id, String user_name, String phone, String email, String password, float balance, List<Role> roles) {
         this.user_id = user_id;
         this.user_name = user_name;
         this.phone = phone;
@@ -66,11 +72,11 @@ public class User {
         this.user_name = user_name;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

@@ -13,32 +13,6 @@ function Sign_Up() {
   const [rePassword, setRePassword] = useState('');
   const [error, setError] = useState('');
 
-  const navigate = useNavigate();
-
-  const usernameIsValid = (username) => {
-    return /^[0-9a-zA-Z_.-]+$/.test(username);
-}
-
-const validateEmail = (email) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-};
-
-function validatePassword(password) {
-
-  var re = /[a-z]\d|\d[a-z]/i;
-  return re.test(password) && password.length > 3;
-
-}
-
-const phoneIsValid = (phone) => {
-  var regex = new RegExp(/^(009665|9665|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/);
-  return regex.test(phone); 
-}
-
 
   return (
 <div className='login_div'>
@@ -78,13 +52,7 @@ const phoneIsValid = (phone) => {
   </div>
 
   <p className='btn_login'><button type="button" className="btn btn-primary nohover mt-5" onClick={()=>{
-    if(! usernameIsValid(userName)){setError('Username is incorrect'); return;}
-    if(! validateEmail(email)){setError('Email is incorrect'); return;}
-    if(! phoneIsValid(phone)){setError('Phone is incorrect'); return;}
-    if(! validatePassword(password)){setError('Password is incorrect'); return;}
     if(password !== rePassword){setError('There is no match in the password'); return;}
-
-
         const user = {
           "user_name":userName,
           "phone":phone,
@@ -92,9 +60,16 @@ const phoneIsValid = (phone) => {
           "password":password}
 
 axios.post(`http://localhost:8080/users`, user)
-.then(response => {});
-setError('')
-  window.location = '/login'}}>Sign Up</button></p>
+.then(response => {
+if(response.data !== 'ok'){
+  setError(response.data);
+  return
+}else{  window.location = '/login'}
+});
+
+
+
+  }}>Sign Up</button></p>
   </div>
   </div>
   );

@@ -19,13 +19,15 @@ public class Post {
     private String images;
     private String post_type;
     private double price;
+    private String state;
+
 
 
     @ManyToOne(fetch = FetchType.EAGER,optional = true)
     @JoinColumn(name = "user_id")
     private User user_id;
 
-    public Post(int post_id, String title, String date, String city, String content, String images, String post_type, double price, User user_id) {
+    public Post(int post_id, String title, String date, String city, String content, String images, String post_type, double price, String state, User user_id) {
         this.post_id = post_id;
         this.title = title;
         this.date = date;
@@ -34,7 +36,16 @@ public class Post {
         this.images = images;
         this.post_type = post_type;
         this.price = price;
+        this.state = state;
         this.user_id = user_id;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public Post() {
