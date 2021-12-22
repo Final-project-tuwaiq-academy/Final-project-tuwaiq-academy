@@ -12,6 +12,7 @@ function Auctions() {
   const [city, setCity] = useState('');
   const [type, setType] = useState('');
   const [price, setPrice] = useState('');
+  const [auctionsState, setAuctionsState] = useState('Open');
   const [postPrice, setpostPrice] = useState();
   const [user, setUser] = useState();
 
@@ -149,10 +150,29 @@ const cheekUser =(post_id)=>{
 </div>
 </div>
 {/* ----------------------Search------------------------------- */}
+
+{/* ----------------------Nav------------------------------------- */}
+
+<div className="container_Auctions_Nav ">
+  <div className="row">
+    <button className="col-sm bg-transparent Auctions_Nav_btn1 text-light" onClick={()=>{setAuctionsState('Open')}}>
+    Open Auctions
+    </button>
+    <button className="col-sm bg-transparent Auctions_Nav_btn1 text-light" onClick={()=>{setAuctionsState('Close')}}>
+    Closed auctions
+    </button>
+    <button className="col-sm bg-transparent Auctions_Nav_btn1 text-light" onClick={()=>{window.location = "/add_post"}}>
+    Add new auction
+    </button>
+  </div>
+</div>
+
+{/* ----------------------Nav------------------------------------- */}
+
 <div className='container container_Auctions'>
    {  posts === undefined ? '' :
    posts.map((element, index) => {
-   if(element.state == 'Open' && ( element.title.startsWith(search)  || search === '') && (city === element.city || city === '') && (type === element.post_type || type === '') ){
+   if((element.state == auctionsState) && ( element.title.startsWith(search)  || search === '') && (city === element.city || city === '') && (type === element.post_type || type === '') ){
    return (
    <section className="main-content" key={index}>
       <div className="container">

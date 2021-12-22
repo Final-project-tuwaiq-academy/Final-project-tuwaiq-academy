@@ -9,15 +9,13 @@ import { useParams } from 'react-router-dom';
 
 function EditPost() {
 
-  const [title, settitle] = useState();
-  const [city, setCity] = useState();
+  const [title, settitle] = useState('');
+  const [city, setCity] = useState('');
   const [type, setType] = useState('');
-  const [price, setPrice] = useState();
-  const [date, setDate] = useState();
-  const [description, setDescription] = useState();
+  const [description, setDescription] = useState('');
   const [img, setImg] = useState('');
-  const [user, setUser] = useState('');
   const [post, setPost] = useState('');
+  const [loding, setLoding] = useState(false);
 
   let { id } = useParams();
 
@@ -31,18 +29,7 @@ function EditPost() {
 
 
   useEffect(() => {
-
-    if(state.user.user_id !== undefined){
-      axios.all([
-        axios.get(`http://localhost:8080/users/${state.user.user_id}`)
-      ])
-      .then(r => {
-        setUser(r[0].data);
-         });
-      }
-
         
-
         axios.all([
             axios.get(`http://localhost:8080/posts/${id}`)
           ])
@@ -53,26 +40,49 @@ function EditPost() {
     
             },[]);
 
+
+
+            const uploadImg = async (e) =>{
+              const files = e.target.files;
+              const data = new FormData();
+              data.append('file', files[0]);
+              data.append('upload_preset', 'jeykewbu');
+              setLoding(true);
+            
+              const res = await fetch("https://api.cloudinary.com/v1_1/dtqxphvwc/image/upload",
+              {
+                method:'POST',
+                body:data
+              })
+            
+              const file = await res.json();
+              setImg(file.url);
+              setLoding(false)
+            
+            }
+
+
+
   return (<>
 
 
-<div class="container-addPost">
+<div className="container-addPost">
 	<div>
 	    
-	    <div class="col-md-8 col-md-offset-2">
+	    <div className="col-md-8 col-md-offset-2">
 	        
     		<h1>Create post</h1>
     		
     		    
-    		    <div class="form-group has-error">
-    		        <label for="slug">Title<span class="require">*</span></label>
-    		        <input type="text" class="form-control" name="slug" placeholder={post.title} onChange={(e)=>{
+    		    <div className="form-group has-error">
+    		        <label for="slug">Title<span className="require">*</span></label>
+    		        <input type="text" className="form-control" name="slug" placeholder={post.title} onChange={(e)=>{
                   settitle(e.target.value);
                 }}/>
     		    </div>
     		    
-    		    <div class="form-group">
-    		        <label for="title">City <span class="require">*</span></label>
+    		    <div className="form-group">
+    		        <label for="title">City <span className="require">*</span></label>
                 <select defaultValue="" id="inputState" className="form-control" onChange={(e)=>{
                   setCity(e.target.value);
                 }}>
@@ -90,8 +100,8 @@ function EditPost() {
       </select>
     		    </div>
 
-            <div class="form-group">
-    		        <label for="title">Mazad Type<span class="require">*</span></label>
+            <div className="form-group">
+    		        <label for="title">Mazad Type<span className="require">*</span></label>
                 <select defaultValue=""  id="inputState" className="form-control" onChange={(e)=>{
                   setType(e.target.value);
                 }}>
@@ -104,35 +114,48 @@ function EditPost() {
     		    
     		 
 
-    		    <div class="form-group">
-    		        <label for="description">Description<span class="require">*</span></label>
-    		        <textarea rows="5" class="form-control" placeholder={post.content} name="description" onChange={(e)=>{
+    		    <div className="form-group">
+    		        <label for="description">Description<span className="require">*</span></label>
+    		        <textarea rows="5" className="form-control" placeholder={post.content} name="description" onChange={(e)=>{
                   setDescription(e.target.value);
                 }}></textarea>
     		    </div>
-            <label for="formFileSm" class="form-label">Picture</label>
-        <input class="form-control mb-4" type="file" id="formFileMultiple" multiple onChange={(e)=>{
-                  setImg(e.target.value);
-                }} />
+            <label for="formFileSm" className="form-label">Picture</label>
+           
+           
+            {loding ?  <>     <br></br>    <div className="spinner-border text-secondary" role="status">
+              <span className="sr-only text-center">Loading...</span>
+            </div> <br></br>  </>  :<>
+            <input className="form-control mb-4" type="file" id="formFileMultiple" multiple onChange={(e)=>{
+                  uploadImg(e);
+                }} />  
+
+
     		    
-    		    <div class="form-group text-center">
-    		        <button type="button" class="btn btn-primary" onClick={()=>{
+    		    <div className="form-group text-center">
+    		        <button type="button" className="btn btn-primary" onClick={()=>{
+                  if(title === ''){title = post.title}
+                  if(city === ''){city = post.city}
+                  if(description === ''){description = post.content}
+                  if(img === ''){img = post.images}
+                  if(type === ''){type = post.type}
                 
                                 post.title = title
                                 post.city = city
                                 post.content =description
-                                post.images = "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg"
+                                post.images = img
                                 post.type = type
                             
                             
                         axios.put(`http://localhost:8080/posts/${id}`, post)
                           .then(response => {});
+                          window.location = '/auctions'
                              
                             }}>
     		            Create
     		        </button>
 
-    		    </div>
+    		    </div></>}
     		    
 		</div>
 		

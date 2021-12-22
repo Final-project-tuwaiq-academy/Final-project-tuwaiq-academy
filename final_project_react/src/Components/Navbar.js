@@ -52,8 +52,8 @@ function Navbar() {
                 </div>
                 <div className="navbar-nav ms-auto">
                     {user === undefined ?<a href="/login" className="nav-item nav-link text-white"><b>Login</b></a> :<>
-                    <a  className="nav-item nav-link text-white"> <b>@{user.user_name}</b></a>
-                    <a  className="nav-item nav-link text-white"><b>{user.balance}$</b></a>
+                    
+                    <a  className="nav-item nav-link text-white" href='/payment'><b>{user.balance}$</b></a>
                     <a href="/" className="nav-item nav-link text-white" onClick={()=>{localStorage.clear()}}><b>Logout</b></a>
                     </> }
                 </div>

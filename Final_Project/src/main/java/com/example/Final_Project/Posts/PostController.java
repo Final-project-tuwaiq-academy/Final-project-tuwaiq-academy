@@ -13,7 +13,6 @@ public class PostController {
 
     private final PostService postService;
 
-
     @Autowired
     public PostController(PostService postService) {
         this.postService = postService;
@@ -26,8 +25,9 @@ public class PostController {
     }
 
     @PostMapping
-    public void addPost(@RequestBody Form form){
-        postService.addPost(form.getPost(), form.getUser_id());
+    public ResponseEntity<String> addPost(@RequestBody Form form){
+
+        return postService.addPost(form.getPost(), form.getUser_id());
     }
 
     @GetMapping("/{id}")

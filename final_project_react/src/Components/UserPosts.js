@@ -110,20 +110,20 @@ const cheekUser =()=>{
             <ul className="list-unstyled components">
 
                 <li>
-                    <a href="/profile">Acount information</a>
+                    <a className='a_profile' href="/profile">Acount information</a>
                 </li>
                 
                 <li>
 
                 </li>
                 <li>
-                    <a href="/user_post">My posts</a>
+                    <a className='a_profile' href="/user_post">My posts</a>
                 </li>
                 <li>
-                    <a href="#">Bargains </a>
+                    <a className='a_profile' href="#">Bargains </a>
                 </li>
                 <li>
-                    <a href="/payment">Payment</a>
+                    <a className='a_profile' href="/payment">Payment</a>
                 </li>
             </ul>
 
@@ -138,14 +138,14 @@ const cheekUser =()=>{
 
 {  posts === undefined ? '' :
       cheekUser() === 0 ?
-      <header class="bg-dark py-5 ">
-    <div class="container px-5">
-        <div class="row gx-5 justify-content-center">
-            <div class="col-lg-6">
-                <div class="text-center my-5">
-                    <h1 class="display-5 fw-bolder text-white mb-2">You don't have any posts</h1>
-                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center mt-5">
-                        <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started with new post</a>
+      <header className="bg-dark py-5 ">
+    <div className="container px-5">
+        <div className="row gx-5 justify-content-center">
+            <div className="col-lg-6">
+                <div className="text-center my-5">
+                    <h1 className="display-5 fw-bolder text-white mb-2">You don't have any posts</h1>
+                    <div className="d-grid gap-3 d-sm-flex justify-content-sm-center mt-5">
+                        <a className="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started with new post</a>
                     </div>
                 </div>
             </div>
@@ -186,10 +186,10 @@ const cheekUser =()=>{
                            </div>
                         <hr/>
                         <div className="">
-                        <button type="button" class="btn btn-outline-primary btn-User-Post" onClick={()=>{
+                        <button type="button" className="btn btn-outline-primary btn-User-Post" onClick={()=>{
                               window.location = `/edit_post/${element.post_id}`
                         }}>Edit Post</button>
-                        <button type="button" class="btn btn-outline-danger btn-User-Post mt-2" onClick={()=>{
+                        <button type="button" className="btn btn-outline-danger btn-User-Post mt-2" onClick={()=>{
                                axios.delete(`http://localhost:8080/posts/${element.post_id}`)
                               .then(() => {});
                               // window.location.reload();

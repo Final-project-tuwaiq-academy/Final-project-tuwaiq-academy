@@ -8,6 +8,7 @@ import com.example.Final_Project.Post_Price.Post_PriceRepository;
 import com.example.Final_Project.Post_Price.Post_PriceService;
 import com.example.Final_Project.Users.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -47,10 +48,24 @@ public class PostService {
         return postRepository.findById(post_id).orElse(null);
     }
 
-    public void addPost(Post post, int user_id) {
+    public ResponseEntity<String> addPost(Post post, int user_id) {
+
+        if (post.getTitle().equals("") || post.getTitle() == null){
+            return ResponseEntity.ok().body("Post title is empty or incorrect");}
+
+        if (post.getCity().equals("") || post.getCity() == null){
+            return ResponseEntity.ok().body("Please select a city");}
+
+        if (post.getPost_type().equals("") || post.getPost_type() == null){
+            return ResponseEntity.ok().body("Please select a type");}
+
+        if (post.getContent().equals("") || post.getContent() == null){
+            return ResponseEntity.ok().body("Please enter a description");}
+
+        if (post.getImages().equals("") || post.getImages() == null){
+            return ResponseEntity.ok().body("Please enter a image");}
+
         User user = userRepository.findById(user_id).orElse(null);
-
-
         post.setUser(user);
         DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd-HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
@@ -64,9 +79,7 @@ public class PostService {
         post.setState("Open");
         postRepository.save(post);
         post_PriceService.addPost_Price(postPrice, post.getPost_id(), user.getUser_id());
-    }
-
-
+    return ResponseEntity.ok().body("ok");}
 
 
     public void deletePost(String id){

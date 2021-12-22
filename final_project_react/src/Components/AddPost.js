@@ -7,14 +7,15 @@ import { useSelector } from "react-redux";
 
 function AddPost() {
 
-  const [title, settitle] = useState();
-  const [city, setCity] = useState();
+  const [title, settitle] = useState('');
+  const [city, setCity] = useState('');
   const [type, setType] = useState('');
-  const [price, setPrice] = useState();
-  const [date, setDate] = useState();
-  const [description, setDescription] = useState();
+  const [price, setPrice] = useState(0);
+  const [description, setDescription] = useState('');
   const [img, setImg] = useState('');
   const [user, setUser] = useState('');
+  const [loding, setLoding] = useState(false);
+
 
 
   const state = useSelector((state) => {
@@ -38,27 +39,44 @@ function AddPost() {
 
         },[]);
 
+const uploadImg = async (e) =>{
+  const files = e.target.files;
+  const data = new FormData();
+  data.append('file', files[0]);
+  data.append('upload_preset', 'jeykewbu');
+  setLoding(true);
 
+  const res = await fetch("https://api.cloudinary.com/v1_1/dtqxphvwc/image/upload",
+  {
+    method:'POST',
+    body:data
+  })
+
+  const file = await res.json();
+  setImg(file.url);
+  setLoding(false)
+
+}
   return (<>
 
 
-<div class="container-addPost">
+<div className="container-addPost">
 	<div>
 	    
-	    <div class="col-md-8 col-md-offset-2">
+	    <div className="col-md-8 col-md-offset-2">
 	        
     		<h1>Create post</h1>
     		
     		    
-    		    <div class="form-group has-error">
-    		        <label for="slug">Title<span class="require">*</span></label>
-    		        <input type="text" class="form-control" name="slug" onChange={(e)=>{
+    		    <div className="form-group has-error">
+    		        <label for="slug">Title<span className="require">*</span></label>
+    		        <input type="text" className="form-control" name="slug" onChange={(e)=>{
                   settitle(e.target.value);
                 }}/>
     		    </div>
     		    
-    		    <div class="form-group">
-    		        <label for="title">City <span class="require">*</span></label>
+    		    <div className="form-group">
+    		        <label for="title">City <span className="require">*</span></label>
                 <select defaultValue="" id="inputState" className="form-control" onChange={(e)=>{
                   setCity(e.target.value);
                 }}>
@@ -76,8 +94,8 @@ function AddPost() {
       </select>
     		    </div>
 
-            <div class="form-group">
-    		        <label for="title">Mazad Type<span class="require">*</span></label>
+            <div className="form-group">
+    		        <label for="title">Mazad Type<span className="require">*</span></label>
                 <select defaultValue=""  id="inputState" className="form-control" onChange={(e)=>{
                   setType(e.target.value);
                 }}>
@@ -88,57 +106,96 @@ function AddPost() {
       </select>
     		    </div>
     		    
-    		    <div class="form-group has-error">
-    		        <label for="slug">Price<span class="require">*</span></label>
-    		        <input type="number" class="form-control" name="slug" onChange={(e)=>{
+    		    <div className="form-group has-error">
+    		        <label for="slug">Price<span className="require">*</span></label>
+    		        <input type="number" className="form-control" name="slug" onChange={(e)=>{
                   setPrice(e.target.value);
                 }}/>
     		    </div>
 
-    		    <div class="form-group has-error">
-    		        <label for="slug">Number of hours<span class="require">*</span></label>
-    		        <input type="number" class="form-control" name="slug" onChange={(e)=>{
-                  setDate(e.target.value);
-                }}/>
-    		    </div>
 
-    		    <div class="form-group">
-    		        <label for="description">Description<span class="require">*</span></label>
-    		        <textarea rows="5" class="form-control" name="description" onChange={(e)=>{
+    		    <div className="form-group">
+    		        <label for="description">Description<span className="require">*</span></label>
+    		        <textarea rows="5" className="form-control" name="description" onChange={(e)=>{
                   setDescription(e.target.value);
                 }}></textarea>
     		    </div>
-            <label for="formFileSm" class="form-label">Picture</label>
-        <input class="form-control mb-4" type="file" id="formFileMultiple" multiple onChange={(e)=>{
-                  setImg(e.target.value);
-                }} />
+            <label for="formFileSm" className="form-label">Picture 
+            </label>
+            {loding ?  <>     <br></br>    <div className="spinner-border text-secondary" role="status">
+              <span className="sr-only text-center">Loading...</span>
+            </div> <br></br>  </>  :<>
+            <input className="form-control mb-4" type="file" id="formFileMultiple" multiple onChange={(e)=>{
+                  uploadImg(e);
+                }} />  
+
+
     		    
-    		    <div class="form-group text-center">
-    		        <button type="button" class="btn btn-primary" onClick={()=>{
+    		    <div className="form-group text-center">
+    		        <button type="button" className="btn btn-primary" onClick={()=>{
+                  var modal = document.querySelector('.modal');
+                                    var span = document.getElementsByClassName("btn-close")[0];
+                                    var span2 = document.getElementsByClassName("close_btn")[0];
+                                    span.onclick = function() {
+                                    modal.style.display = "none";
+                                    }
+                                    span2.onclick = function() {
+                                    modal.style.display = "none";
+                                    }
+                                    window.onclick = function(event) {
+                                    if (event.target == modal) {
+                                    modal.style.display = "none";
+                                    }
+                                    }
                   const post = {
                             "post":
                             {
                                 "title":title,
                                 "city":city,
                                 "content":description,
-                                "images":"https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
+                                "images":img,
                                 "post_type":type,
                                 "price":price
                             },
                             "user_id":user.user_id
                         }
                         axios.post(`http://localhost:8080/posts`, post)
-                          .then(response => {});
+                          .then(response => {
+                            if(response.data !== 'ok'){
+                                    modal.style.display = "block";
+                                    document.querySelector('.modal-title').innerHTML = 'Eroor'
+                                    document.querySelector('.error_text').innerHTML = response.data
+                                    return
+                            }else{   window.location = "/auctions"}
+                          });
                              
-                             window.location = "/auctions"}}>
+                            }}>
     		            Create
     		        </button>
 
     		    </div>
-    		    
+    		    </>}
 		</div>
 		
 	</div>
+</div>
+
+
+<div className="modal" >
+   <div className="modal-dialog">
+      <div className="modal-content p-0">
+         <div className="modal-header p-3">
+            <h5 className="modal-title">Modal title</h5>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div className="modal-body text-center p-2 pt-3">
+            <p className='error_text'>Modal body text goes here.</p>
+         </div>
+         <div className="modal-footer p-1">
+            <button type="button" className="btn btn-secondary close_btn" data-bs-dismiss="modal">Close</button>
+         </div>
+      </div>
+   </div>
 </div>
   </>);
 }

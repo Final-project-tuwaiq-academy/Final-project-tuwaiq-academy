@@ -51,19 +51,19 @@ function Profile() {
             <ul className="list-unstyled components">
 
                 <li>
-                    <a href="/profile">Acount information</a>
+                    <a className='a_profile' href="/profile">Acount information</a>
                 </li>
                 <li>
 
                 </li>
                 <li>
-                    <a href="/user_post">My posts</a>
+                    <a className='a_profile' href="/user_post">My posts</a>
                 </li>
                 <li>
-                    <a href="#">Bargains </a>
+                    <a className='a_profile' href="#">Bargains </a>
                 </li>
                 <li>
-                    <a href="payment">Payment</a>
+                    <a className='a_profile' href="payment">Payment</a>
                 </li>
             </ul>
 
@@ -96,7 +96,7 @@ function Profile() {
   <div className="mb-3">
   
     <label htmlFor="exampleInputEmail1" className="form-label text-white" >UserName</label>
-    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={user.user_name} disabled/>
+    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={"@"+user.user_name} disabled/>
   </div>
   <div className="mb-3">
     <label htmlFor="exampleInputPassword1" className="form-label text-white">Email address</label>

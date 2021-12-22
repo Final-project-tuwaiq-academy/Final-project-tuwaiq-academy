@@ -49,19 +49,19 @@ function Payment() {
             <ul className="list-unstyled components">
 
                 <li>
-                    <a href="/profile">Acount information</a>
+                    <a  className='a_profile' href="/profile">Acount information</a>
                 </li>
                 <li>
 
                 </li>
                 <li>
-                    <a href="/user_post">My posts</a>
+                    <a className='a_profile' href="/user_post">My posts</a>
                 </li>
                 <li>
-                    <a href="#">Bargains </a>
+                    <a className='a_profile' href="#">Bargains </a>
                 </li>
                 <li>
-                    <a href="/payment">Payment</a>
+                    <a className='a_profile' href="/payment">Payment</a>
                 </li>
             </ul>
 
@@ -76,36 +76,36 @@ function Payment() {
   <div>
 
 {user === undefined ? '' :
-<div class="mt-50 mb-50 payment-div">
-    <div class="card-payment-title mx-auto text-center"> Payment </div>
-    <div class="nav-payment">
-        <ul class="mx-auto">
-            <li class="active-payment"><a href="#">Recharge</a></li>
+<div className="mt-50 mb-50 payment-div">
+    <div className="card-payment-title mx-auto text-center"> Payment </div>
+    <div className="nav-payment">
+        <ul className="mx-auto">
+            <li className="active-payment"><a href="#">Recharge</a></li>
         </ul>
     </div>
     <div className='form-payment'> 
         
          <span id="card-header">Add your card:</span>
-        <div class="row-1">
-            <div class="row row-2"> <span id="card-inner">Card holder name</span> </div>
-            <div class="row row-2"> <input className='input-payment' type="number" onChange={(e)=>{
+        <div className="row-1">
+            <div className="row row-2"> <span id="card-inner">Card holder name</span> </div>
+            <div className="row row-2"> <input className='input-payment' type="number" onChange={(e)=>{
               setBalance(e.target.value);
             }} placeholder="Your Name" /> </div>
         </div>
-        <div class="row-1">
-            <div class="row row-2"> <span id="card-inner">Card holder name</span> </div>
-            <div class="row row-2"> <input className='input-payment' type="text" placeholder="Your Name" /> </div>
+        <div className="row-1">
+            <div className="row row-2"> <span id="card-inner">Card holder name</span> </div>
+            <div className="row row-2"> <input className='input-payment' type="text" placeholder="Your Name" /> </div>
         </div>
-        <div class="row three">
-            <div class="col-7">
-                <div class="row-1">
-                    <div class="row row-2"> <span id="card-inner">Card number</span> </div>
-                    <div class="row row-2"> <input className='input-payment' type="text" placeholder="5134-5264-4" /> </div>
+        <div className="row three">
+            <div className="col-7">
+                <div className="row-1">
+                    <div className="row row-2"> <span id="card-inner">Card number</span> </div>
+                    <div className="row row-2"> <input className='input-payment' type="text" placeholder="5134-5264-4" /> </div>
                 </div>
             </div>
-            <div class="col-2"> <input className='input-payment' type="text" placeholder="Exp. date" /> </div>
-            <div class="col-2"> <input className='input-payment' type="text" placeholder="CVV" /> </div>
-        </div> <button class="btn-primary btn btn-pay" onClick={()=>{
+            <div className="col-2"> <input className='input-payment' type="text" placeholder="Exp. date" /> </div>
+            <div className="col-2"> <input className='input-payment' type="text" placeholder="CVV" /> </div>
+        </div> <button className="btn-primary btn btn-pay" onClick={()=>{
 
         if(balance < 0){setError('Username is incorrect'); return;}
 
