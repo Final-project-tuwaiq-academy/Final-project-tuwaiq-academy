@@ -23,6 +23,8 @@ public class User {
 
     private String Password;
     private float balance;
+    private String img;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
@@ -30,14 +32,23 @@ public class User {
     public User() {
     }
 
-    public User(int user_id, String user_name, String phone, String email, String password, float balance, List<Role> roles) {
+    public User(int user_id, String user_name, String phone, String email, String password, float balance, String img, List<Role> roles) {
         this.user_id = user_id;
         this.user_name = user_name;
         this.phone = phone;
         this.email = email;
         Password = password;
         this.balance = balance;
+        this.img = img;
         this.roles = roles;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public List<Role> getRoles() {

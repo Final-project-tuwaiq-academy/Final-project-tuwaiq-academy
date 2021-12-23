@@ -104,6 +104,7 @@ public class UserService implements UserDetailsService {
         Role role = roleRepo.findById(Long.valueOf(2)).orElse(null);
         user.getRoles().add(role);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setImg("https://res.cloudinary.com/dtqxphvwc/image/upload/v1640244759/jeykewbu/ghuemwc7266ws0a2mgql.png");
 
         userRepository.save(user);
         return ResponseEntity.ok().body("ok");
@@ -129,37 +130,43 @@ public class UserService implements UserDetailsService {
         else {
 
 
-            String regex = "^[a-zA-Z0-9._-]{3,}$";
-            Pattern p = Pattern.compile(regex);
-            Matcher m = p.matcher(data.getUser_name());
-            if (!m.matches()) {
-                return ResponseEntity.ok().body("Username is incorrect");
-            }
-
-            regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-            p = Pattern.compile(regex);
-            m = p.matcher(data.getEmail());
-            if (!m.matches()) {
+            Pattern p = Pattern.compile(regex);
+            Matcher m = p.matcher(data.getEmail());
+            if(data.getEmail().equals("") ||  (data.getEmail() == null)){
+                data.setEmail(user.getEmail());
+            }
+            else if(! m.matches()) {
                 return ResponseEntity.ok().body("Email is incorrect");
             }
 
             regex = "^(009665|9665|\\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$";
             p = Pattern.compile(regex);
             m = p.matcher(data.getPhone());
-            if (!m.matches()) {
+            if(data.getPhone().equals("") ||  (data.getPhone() == null)){
+                data.setPhone(user.getPhone());
+            }
+            else  if (! m.matches()){
                 return ResponseEntity.ok().body("Phone is incorrect");
             }
 
             regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
             p = Pattern.compile(regex);
             m = p.matcher(data.getPassword());
-            if (!m.matches()) {
+            if(data.getPassword().equals("") ||  (data.getPassword() == null)){
+                data.setPassword(user.getPassword());
+            }
+            else if(! m.matches()) {
                 return ResponseEntity.ok().body("Password is incorrect");
             }
 
             if (userRepository.findByEmail(data.getEmail()) != null) {
                 return ResponseEntity.ok().body("Email already exists");
+            }
+
+            if (! data.getImg().equals("")){
+                user.setImg(data.getImg());
             }
 
             user.setUser_name(data.getUser_name());

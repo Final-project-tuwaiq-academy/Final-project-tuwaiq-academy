@@ -119,9 +119,7 @@ const cheekUser =()=>{
                 <li>
                     <a className='a_profile' href="/user_post">My posts</a>
                 </li>
-                <li>
-                    <a className='a_profile' href="#">Bargains </a>
-                </li>
+
                 <li>
                     <a className='a_profile' href="/payment">Payment</a>
                 </li>

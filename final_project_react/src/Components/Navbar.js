@@ -47,14 +47,24 @@ function Navbar() {
                 <div className="navbar-nav ms-auto">
                     <a href="/" className="nav-item nav-link active text-white"><b>Home</b></a>
                     <a href="/auctions" className="nav-item nav-link text-white"><b>Auctions</b></a>
-                    <a href="/profile" className="nav-item nav-link text-white"><b>Profile</b></a>
-
+                    {user === undefined ? '' :<>
+                    <a  className="nav-item nav-link text-white" href='/payment'><b>{user.balance}$</b></a>
+                    </>}
                 </div>
                 <div className="navbar-nav ms-auto">
                     {user === undefined ?<a href="/login" className="nav-item nav-link text-white"><b>Login</b></a> :<>
                     
-                    <a  className="nav-item nav-link text-white" href='/payment'><b>{user.balance}$</b></a>
-                    <a href="/" className="nav-item nav-link text-white" onClick={()=>{localStorage.clear()}}><b>Logout</b></a>
+                    <li className="nav-item">
+  <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">              <img src={user.img} className="rounded-circle" height="22"
+              alt="" loading="lazy" /></a>
+  <ul className="dropdown-menu li-nav">
+    <li><a href="/profile" className="dropdown-item text-center">Profile</a></li>
+    <li><hr className="dropdown-divider" /></li>
+    <li><a href="/" className="dropdown-item text-center" onClick={()=>{localStorage.clear()}}><b>Logout</b></a></li>
+  </ul>
+      </li>
+
+                    
                     </> }
                 </div>
             </div>

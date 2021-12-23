@@ -122,10 +122,10 @@ const uploadImg = async (e) =>{
     		    </div>
             <label for="formFileSm" className="form-label">Picture 
             </label>
-            {loding ?  <>     <br></br>    <div className="spinner-border text-secondary" role="status">
+            {loding ?  <p className='text-center'>     <br></br>    <div className="spinner-border text-secondary" role="status">
               <span className="sr-only text-center">Loading...</span>
-            </div> <br></br>  </>  :<>
-            <input className="form-control mb-4" type="file" id="formFileMultiple" multiple onChange={(e)=>{
+            </div> <br></br>  </p>  :<>
+            <input className="form-control mb-4" type="file" id="formFileMultiple" accept="image/png, image/gif, image/jpeg" multiple onChange={(e)=>{
                   uploadImg(e);
                 }} />  
 

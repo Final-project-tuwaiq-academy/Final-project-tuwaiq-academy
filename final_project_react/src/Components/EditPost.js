@@ -126,7 +126,7 @@ function EditPost() {
             {loding ?  <>     <br></br>    <div className="spinner-border text-secondary" role="status">
               <span className="sr-only text-center">Loading...</span>
             </div> <br></br>  </>  :<>
-            <input className="form-control mb-4" type="file" id="formFileMultiple" multiple onChange={(e)=>{
+            <input className="form-control mb-4" type="file" id="formFileMultiple" accept="image/png, image/gif, image/jpeg" multiple onChange={(e)=>{
                   uploadImg(e);
                 }} />  
 

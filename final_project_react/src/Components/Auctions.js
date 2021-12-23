@@ -115,7 +115,7 @@ const cheekUser =(post_id)=>{
   return (
 <>
 {/* ----------------------Search------------------------------- */}
-<div className='bg-white py-5'>
+<div className='bg-dark py-5'>
 <div className=" mt-5 m-lg-5 ">
    <input type="text" className="form-control Text_search" id="inputAddress" placeholder="Search by auction name" onChange={(e)=>{setSearch(e.target.value);}}/>
 </div>

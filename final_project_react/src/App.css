@@ -211,6 +211,7 @@ body {
 }
 .login_div_2 {
   padding: 7%;
+  padding-top: 1%;
 }
 .container {
   border-radius: 25px 25px 25px 25px;
@@ -991,4 +992,11 @@ margin-bottom: 2%;
   color: yellow;
   background-color: transparent;
   text-decoration: underline;
+}
+
+.li-nav {
+  left:inherit !important;
+  right:0px;
+}
+.nav-link, .dropdown-toggle, .show{
 }
