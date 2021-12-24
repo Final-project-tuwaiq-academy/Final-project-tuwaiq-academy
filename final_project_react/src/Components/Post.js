@@ -33,7 +33,9 @@ function Auctions() {
 
 
 
-  useEffect(() => {
+  useEffect(()=>{
+   let myInterval = setInterval(() => {
+
 
     if(state.user.user_id !== undefined){
       axios.all([
@@ -51,9 +53,34 @@ const config = {
     axios.all([
       axios.get(`http://localhost:8080/posts/${id}`)
     ])
-    .then(r => {
+    .then(r => { 
+         var endTime = new Date(r[0].data.date) / 1000;
+         var elapsed = new Date() / 1000;
+         var totalSec =  endTime - elapsed;
+         var h = parseInt( totalSec / 3600 )
+         if(h < 0){h = "00"}
+         else if(h < 10 ){h = '0'+h.toString();}
+
+         var m = parseInt( totalSec / 60 ) % 60;
+         if(m < 0){m = "00"}
+         else if(m < 10 ){m = '0'+m.toString();}
+
+         var s = parseInt(totalSec % 60, 10);
+         if(s < 0){s = "00"}
+         else if(s < 10 ){s = '0'+s.toString();}
+         
+         var result = h + ":" + m + ":" + s;
+         r[0].data.date = result;
+         if(r[0].data.date === "00:00:00"){
+            
+
+            r[0].data.state = "Close";
+            axios.put(`http://localhost:8080/posts/${r[0].data.post_id}`, r[0].data)
+            .then(response => {});
+         }
+      
       setPost(r[0].data);
-       });
+   });
   
        axios.all([
         axios.get(`http://localhost:8080/comments/${id}`)
@@ -79,9 +106,12 @@ const config = {
            });
       
 
-        }
+        
   
-  ,[]);
+      }, 1000)
+      return ()=> {
+        };
+  },[]);
 
   const cheekUser =(post_id)=>{
     for(let i = 0 ; i < price.length ;i++){
@@ -100,31 +130,30 @@ const config = {
     {post === undefined ? '' :
     <>
     <div className="container-fluid">
-       <div className="row">
-          <div className="col-12 mt-3">
-             <div className="card">
+       <div className="row ">
+          <div className="col-12 mt-3 ">
+             <div className="card row-post shadow-lg  rounded">
                 <div className="card-horizontal" >
                    <div className="card-body w-25 h-25">
-                      <h4 className="card-title">{post.title}</h4>
+                      <h4 className="card-title text-white text-left">{post.title}</h4>
                       
                       <p className="card-text m-0">
                          <small>
-                      <span className="fa fa-user"></span> <b>@{post.user.user_name}</b>
+                      <span className="fa fa-user post-icon"></span> <b className='text-white'>@{post.user.user_name}</b>
                       </small></p>
 
                       <p className="card-text m-0">
                          <small>
                       
-                      <span className="fa fa-map-marker"></span> <b>{post.city}</b>
+                      <span className="fa fa-map-marker post-icon"></span> <b className='text-white'>{post.city}</b>
                       </small></p>
-                      <p className="card-text m-0">                                
+                      <p className="card-text m-0 text-white  text-left">                                
                       
-                         <span className="fa fa-clock-o"></span> 02:45:21
+                         <span className="fa fa-clock-o post-icon"></span> {post.date}
                       
                       </p>
                       <hr>
                       </hr>
-                      <p>{post.content}</p>
                    </div>
                 </div>
                 <div className="card-footer card-footer-post">
@@ -132,20 +161,21 @@ const config = {
                    <div className="newsletter-subscribe">
         <div className="container">
             <div className="intro">
-                <h2 className="text-center">Subscribe for our Newsletter</h2>
+                <h6 className=" m-5">{post.content}</h6>
+                <hr className='mt-5'></hr>
                 <p className="text-center card-text m-0">                      
                          
-                      
-                      <span className="fa fa-user"></span><b>{lastPaidUser === undefined ? '' : lastPaidUser.user_name}  </b>
-                      <span className="fa fa-money"></span> <b> {price.price}$</b>
+                     <h6>Last of the payment</h6>
+                      <span className="fa fa-user"></span><b> {lastPaidUser === undefined ? '' : lastPaidUser.user_name}  </b>
+                      <br></br><span className="fa fa-money"></span> <b> {price.price}$</b>
 
                       </p>
             </div>
-            <div className="form-inline" className='text-center'>
-                <div className="form-group"><input type="number" min={price.price+1} className="form-control input-manulator" placeholder="Enter your price" aria-label="Example text with button addon" aria-describedby="button-addon1" onChange={(e)=>{
+            <div class="input-group mb-3 mt-1 ml-5 mr-5">
+            <input type="number" min={price.price+1} className="form-control" placeholder="Enter your price" aria-label="Example text with button addon" aria-describedby="button-addon1" onChange={(e)=>{
                                  setpostPrice(e.target.value);
-                                 }} /></div>
-                <div className="form-group"><button className="btn btn-outline-success" type="submit" onClick={()=>{
+                                 }} />  <div class="input-group-append">
+                <button className="btn btn-outline-secondary mr-5" type="submit" onClick={()=>{
                                     var modal = document.querySelector('.modal');
                                     var span = document.getElementsByClassName("btn-close")[0];
                                     var span2 = document.getElementsByClassName("close_btn")[0];
@@ -222,10 +252,11 @@ const config = {
                                     setpostPrice(undefined)
                                     window.location.reload(); 
                                     // Get the modal
-                                    }}>Buy</button></div>
+                                    }}>Buy</button>  </div>
+</div>
+
             </div>
         </div>
-    </div>
     </small>
                 </div>
              </div>
@@ -237,40 +268,56 @@ const config = {
     <div className='comments_div'>
        {comment === undefined ? '' :
        comment.map((element, index) => {
-       return ( 
-       <div className="container_comment" key={index}>
-          <div>
-             <div>
-                <div className="card card-white  container_comment">
-                   <div className="post-heading">
-                      <div className="float-left image">
-                         <img src="http://bootdey.com/img/Content/user_1.jpg" className="img-circle avatar" alt="user profile image" />
-                      </div>
-                      <div className="float-left meta">
-                         <div className="title h5 mt-4 ml-3">
-                         <p className="card-text m-0">
-                         
-                      <span className="fa fa-user"></span> <b>@{element.user.user_name}</b>
-                      </p>
-                         </div>
-                         <h6 className="text-muted time m-3">{element.date}</h6>
-                      </div>
-                   </div>
-                   <div className="post-description m-3">
-                      <p>{element.content}</p>
-                   </div>
-                </div>
-             </div>
-          </div>
-       </div>
-       )})}
-          <div className="m-4">
+       return ( <>
+         <div class="containern">
+<div class="row">
+    <div class="col-md-8n ">
+        <div class="media g-mb-30 media-comment ">
+            <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src={element.user.img} alt="Image Description" />
+            <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30 shadow rounded">
+              <div class="g-mb-15">
+                <h5 class="h5 g-color-gray-dark-v1 mb-0"><b>{element.user.user_name}</b></h5>
+                <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
+              </div>
+        
+              <p>{element.content}</p>
+        
+              <ul class="list-inline d-sm-flex my-0">
+                <li class="list-inline-item g-mr-20">
+                  <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                    <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
+                    178
+                  </a>
+                </li>
+                <li class="list-inline-item g-mr-20">
+                  <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                    <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
+                    34
+                  </a>
+                </li>
+                <li class="list-inline-item ml-auto">
+                  <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                    <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
+                    Reply
+                  </a>
+                </li>
+              </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+       </>)})}
+       <div class="media g-mb-30 media-comment ">
+            <p class="d-flex g-width-50 g-height-50 g-mt-3 g-mr-15"  />
+       <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30 shadow rounded" src={"fa fa-comment"}>
              <label htmlFor="exampleInputEmail1" className="form-label">Write comment</label>
              <textarea className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  rows="4" cols="50" onChange={(e)=>{
                setAddComeent(e.target.value);
              }}></textarea>
-          </div>
-          <p className='text-center'><button type="submit" className="btn btn-primary" onClick={()=>{
+             <p className='text-center mt-5'><button type="submit" className="btn btn-primary" onClick={()=>{
             const userComeent = {
                       "comment":
                       {
@@ -279,10 +326,14 @@ const config = {
                       "post_id":post.post_id,
                       "user_id":state.user.user_id
                   }
-                  console.log(post.post_id, " u:",state.user.user_id)
             axios.post(`http://localhost:8080/comments`, userComeent)
             .then(response => {window.location.reload()});
           }}>Submit</button></p>
+          </div>
+          
+          </div>
+
+      
     </div>
 
 
@@ -304,6 +355,8 @@ const config = {
       </div>
    </div>
 </div>
+
+
 
     </>
   );

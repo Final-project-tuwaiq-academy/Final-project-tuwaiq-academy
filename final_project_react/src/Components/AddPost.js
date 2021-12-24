@@ -60,23 +60,23 @@ const uploadImg = async (e) =>{
   return (<>
 
 
-<div className="container-addPost">
+<div className="container-addPost add-post-text">
 	<div>
 	    
-	    <div className="col-md-8 col-md-offset-2">
+	    <div className="">
 	        
-    		<h1>Create post</h1>
+    		<h1 className='display-6 fw-bolder text-center mb-2 add-post-text'>Create post</h1>
     		
     		    
     		    <div className="form-group has-error">
-    		        <label for="slug">Title<span className="require">*</span></label>
+    		        <label for="slug">Title</label>
     		        <input type="text" className="form-control" name="slug" onChange={(e)=>{
                   settitle(e.target.value);
                 }}/>
     		    </div>
     		    
     		    <div className="form-group">
-    		        <label for="title">City <span className="require">*</span></label>
+    		        <label for="title">City </label>
                 <select defaultValue="" id="inputState" className="form-control" onChange={(e)=>{
                   setCity(e.target.value);
                 }}>
@@ -95,7 +95,7 @@ const uploadImg = async (e) =>{
     		    </div>
 
             <div className="form-group">
-    		        <label for="title">Mazad Type<span className="require">*</span></label>
+    		        <label for="title">Mazad Type</label>
                 <select defaultValue=""  id="inputState" className="form-control" onChange={(e)=>{
                   setType(e.target.value);
                 }}>
@@ -107,7 +107,7 @@ const uploadImg = async (e) =>{
     		    </div>
     		    
     		    <div className="form-group has-error">
-    		        <label for="slug">Price<span className="require">*</span></label>
+    		        <label for="slug">Price</label>
     		        <input type="number" className="form-control" name="slug" onChange={(e)=>{
                   setPrice(e.target.value);
                 }}/>
@@ -115,13 +115,15 @@ const uploadImg = async (e) =>{
 
 
     		    <div className="form-group">
-    		        <label for="description">Description<span className="require">*</span></label>
+    		        <label for="description">Description</label>
     		        <textarea rows="5" className="form-control" name="description" onChange={(e)=>{
                   setDescription(e.target.value);
                 }}></textarea>
     		    </div>
             <label for="formFileSm" className="form-label">Picture 
             </label>
+            {img === '' ? '' :<div className='wrapper-add-post'> <img src={img} height="50%"/><br></br> </div>}
+
             {loding ?  <p className='text-center'>     <br></br>    <div className="spinner-border text-secondary" role="status">
               <span className="sr-only text-center">Loading...</span>
             </div> <br></br>  </p>  :<>

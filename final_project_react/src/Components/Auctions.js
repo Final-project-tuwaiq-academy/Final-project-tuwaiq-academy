@@ -35,8 +35,6 @@ function Auctions() {
          });
       }
 
-        
-
     axios.all([
       axios.get('http://localhost:8080/posts')
     ])
@@ -115,13 +113,13 @@ const cheekUser =(post_id)=>{
   return (
 <>
 {/* ----------------------Search------------------------------- */}
-<div className='bg-dark py-5'>
+<div className='bg-darkk py-5'>
 <div className=" mt-5 m-lg-5 ">
    <input type="text" className="form-control Text_search" id="inputAddress" placeholder="Search by auction name" onChange={(e)=>{setSearch(e.target.value);}}/>
 </div>
 <div className=' container_Auctions_Search '>
    <div className="form-group">
-      <label htmlFor="inputState" className='Search_label'>City</label>
+      <label htmlFor="inputState" className='Search_label text-white'>City</label>
       <select defaultValue="" id="inputState" className="form-control Text_search" onChange={(e)=>
          {setCity(e.target.value);}}>
          <option value="" disabled >Choose Mazad City</option>
@@ -138,7 +136,7 @@ const cheekUser =(post_id)=>{
       </select>
    </div>
    <div className="form-group ">
-      <label htmlFor="inputState" className='Search_label'>Mazad Type</label>
+      <label htmlFor="inputState" className='Search_label text-white'>Mazad Type</label>
       <select defaultValue=""  id="inputState" className="form-control Text_search" onClick={(e)=>
          {setType(e.target.value)}}>
          <option value="" disabled>Choose Mazad Type</option>
@@ -156,7 +154,7 @@ const cheekUser =(post_id)=>{
 <div className="container_Auctions_Nav ">
   <div className="row">
     <button className="col-sm bg-transparent Auctions_Nav_btn1 text-light" onClick={()=>{setAuctionsState('Open')}}>
-    Open Auctions
+    Open auctions
     </button>
     <button className="col-sm bg-transparent Auctions_Nav_btn1 text-light" onClick={()=>{setAuctionsState('Close')}}>
     Closed auctions
@@ -173,6 +171,57 @@ const cheekUser =(post_id)=>{
    {  posts === undefined ? '' :
    posts.map((element, index) => {
    if((element.state == auctionsState) && ( element.title.startsWith(search)  || search === '') && (city === element.city || city === '') && (type === element.post_type || type === '') ){
+   if(auctionsState === 'Close'){
+      return(
+         <section className="main-content" key={index}>
+      <div className="container">
+         <div className="row">
+            <div className="cols-sm-6 cols-md-6 cols-lg-6">
+               <div className="food-card food-card--vertical">
+                  <div className="food-card_img">
+                     <img src={element.images} alt="" />
+                     <a href={`post/${element.post_id}`}><i className="fa fa-heart"></i></a>
+                  </div>
+                  <div className="food-card_content">
+                     <div className="food-card_title-section">
+                        <a href={`post/${element.post_id}`} className="food-card_title">{element.title}</a>
+                        <div>
+                           <span className="fa fa-map-marker"></span> <b>{element.city}</b>
+                        </div>
+                     </div>
+                     <div className="food-card_bottom-section">
+                        <div className="space-between">
+                           <div>
+                              <span className="fa fa-clock-o"></span> {element.date}
+                           </div>
+                           <div className="pull-right">
+                           {element.state == "Open" ? <span className="badge badge-success">{element.state}</span> : <span className="badge badge-danger">{element.state}</span>}
+                           </div>
+                        </div>
+                        <hr/>
+                        <div className="space-between">
+                           <div className="food-card_price mr-5">
+                              <span>{getPostPrice(element.post_id)}$</span>
+                           </div>
+                           <div className="food-card_order-count">
+                              <div className="input-group mb-3">
+                                 <input type="number" className="form-control input-manulator" placeholder={getPostPrice(element.post_id)} disabled/>
+                                 <div className="input-group-append">
+                                    
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   
+      );
+   }
    return (
    <section className="main-content" key={index}>
       <div className="container">

@@ -136,12 +136,12 @@ const cheekUser =()=>{
 
 {  posts === undefined ? '' :
       cheekUser() === 0 ?
-      <header className="bg-dark py-5 ">
+      <header className=" py-5 ">
     <div className="container px-5">
         <div className="row gx-5 justify-content-center">
             <div className="col-lg-6">
                 <div className="text-center my-5">
-                    <h1 className="display-5 fw-bolder text-white mb-2">You don't have any posts</h1>
+                    <h1 className="display-5 fw-bolder  mb-2 add-post-text">You don't have any posts</h1>
                     <div className="d-grid gap-3 d-sm-flex justify-content-sm-center mt-5">
                         <a className="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started with new post</a>
                     </div>
@@ -176,7 +176,7 @@ const cheekUser =()=>{
                               <span className="fa fa-clock-o"></span> {element.date}
                            </div>
                            <div className="pull-right">
-                              <span className="badge badge-success">{element.state}</span>
+                           {element.state == "Open" ? <span className="badge badge-success">{element.state}</span> : <span className="badge badge-danger">{element.state}</span>}
                            </div>
                         </div>
                         <div className="food-card_price mr-5 text-center">

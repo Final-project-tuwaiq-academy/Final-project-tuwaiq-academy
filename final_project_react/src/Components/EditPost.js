@@ -66,23 +66,23 @@ function EditPost() {
   return (<>
 
 
-<div className="container-addPost">
+<div className="container-addPost add-post-text">
 	<div>
 	    
-	    <div className="col-md-8 col-md-offset-2">
+	    <div>
 	        
-    		<h1>Create post</h1>
+    		<h1 className='display-6 fw-bolder text-center mb-2 add-post-text'>Edit post</h1>
     		
     		    
     		    <div className="form-group has-error">
-    		        <label for="slug">Title<span className="require">*</span></label>
+    		        <label for="slug">Title</label>
     		        <input type="text" className="form-control" name="slug" placeholder={post.title} onChange={(e)=>{
                   settitle(e.target.value);
                 }}/>
     		    </div>
     		    
     		    <div className="form-group">
-    		        <label for="title">City <span className="require">*</span></label>
+    		        <label for="title">City</label>
                 <select defaultValue="" id="inputState" className="form-control" onChange={(e)=>{
                   setCity(e.target.value);
                 }}>
@@ -101,7 +101,7 @@ function EditPost() {
     		    </div>
 
             <div className="form-group">
-    		        <label for="title">Mazad Type<span className="require">*</span></label>
+    		        <label for="title">Mazad Type</label>
                 <select defaultValue=""  id="inputState" className="form-control" onChange={(e)=>{
                   setType(e.target.value);
                 }}>
@@ -115,17 +115,18 @@ function EditPost() {
     		 
 
     		    <div className="form-group">
-    		        <label for="description">Description<span className="require">*</span></label>
+    		        <label for="description">Description</label>
     		        <textarea rows="5" className="form-control" placeholder={post.content} name="description" onChange={(e)=>{
                   setDescription(e.target.value);
                 }}></textarea>
     		    </div>
             <label for="formFileSm" className="form-label">Picture</label>
            
-           
-            {loding ?  <>     <br></br>    <div className="spinner-border text-secondary" role="status">
+            {img === '' ? '' :<div className='wrapper-add-post'> <img src={img} height="50%"/><br></br> </div>}
+
+            {loding ?  <>     <br></br> <p className='text-center'>    <div className="spinner-border text-secondary" role="status">
               <span className="sr-only text-center">Loading...</span>
-            </div> <br></br>  </>  :<>
+            </div></p> <br></br>  </>  :<>
             <input className="form-control mb-4" type="file" id="formFileMultiple" accept="image/png, image/gif, image/jpeg" multiple onChange={(e)=>{
                   uploadImg(e);
                 }} />  

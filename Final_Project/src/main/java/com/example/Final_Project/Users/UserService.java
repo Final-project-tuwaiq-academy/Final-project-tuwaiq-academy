@@ -99,7 +99,6 @@ public class UserService implements UserDetailsService {
             return ResponseEntity.ok().body("Email already exists");
         }
 
-//----------------------
 
         Role role = roleRepo.findById(Long.valueOf(2)).orElse(null);
         user.getRoles().add(role);

@@ -65,11 +65,8 @@ function Payment() {
 
         </nav>
 
- 
-
 
   </div>
-
 
   <div>
 
@@ -85,10 +82,10 @@ function Payment() {
         
          <span id="card-header">Add your card:</span>
         <div className="row-1">
-            <div className="row row-2"> <span id="card-inner">Card holder name</span> </div>
+            <div className="row row-2"> <span id="card-inner">Enter the amount</span> </div>
             <div className="row row-2"> <input className='input-payment' type="number" onChange={(e)=>{
               setBalance(e.target.value);
-            }} placeholder="Your Name" /> </div>
+            }} placeholder="Enter the amount you want to deposit" /> </div>
         </div>
         <div className="row-1">
             <div className="row row-2"> <span id="card-inner">Card holder name</span> </div>
@@ -103,7 +100,8 @@ function Payment() {
             </div>
             <div className="col-2"> <input className='input-payment' type="text" placeholder="Exp. date" /> </div>
             <div className="col-2"> <input className='input-payment' type="text" placeholder="CVV" /> </div>
-        </div> <button className="btn-primary btn btn-pay" onClick={()=>{
+        </div> 
+        <p className='text-center mt-3'><button className="btn-primary btn btn-pay" onClick={()=>{
 
         if(balance < 0){setError('Username is incorrect'); return;}
 
@@ -115,7 +113,7 @@ function Payment() {
                                 setError('')
                                 window.location.reload();
 
-}}><b>Add card</b></button>
+}}><b>Add card</b></button></p>
     </div>
 </div>
   
