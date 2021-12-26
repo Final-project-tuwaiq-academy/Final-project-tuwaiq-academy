@@ -134,9 +134,9 @@ function Profile() {
   </div>
 
 
-   {loding ?  <p className='text-center'>     <br></br>    <div className="spinner-border text-secondary" role="status">
+   {loding ?  <div className='text-center'>     <br></br>    <div className="spinner-border text-secondary" role="status">
               <span className="sr-only text-center">Loading...</span>
-            </div> <br></br>  </p>  :<>
+            </div> <br></br>  </div>  :<>
             <label htmlFor="exampleInputPassword1" className="form-label text-white">Picture</label>
             <input className="form-control mb-4" type="file" id="formFileMultiple" accept="image/png, image/gif, image/jpeg" multiple onChange={(e)=>{
                   uploadImg(e);

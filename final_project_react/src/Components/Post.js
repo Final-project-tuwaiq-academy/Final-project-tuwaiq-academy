@@ -163,18 +163,18 @@ const config = {
             <div className="intro">
                 <h6 className=" m-5">{post.content}</h6>
                 <hr className='mt-5'></hr>
-                <p className="text-center card-text m-0">                      
+                <div className="text-center card-text m-0">                      
                          
                      <h6>Last of the payment</h6>
                       <span className="fa fa-user"></span><b> {lastPaidUser === undefined ? '' : lastPaidUser.user_name}  </b>
                       <br></br><span className="fa fa-money"></span> <b> {price.price}$</b>
 
-                      </p>
+                      </div>
             </div>
-            <div class="input-group mb-3 mt-1 ml-5 mr-5">
-            <input type="number" min={price.price+1} className="form-control" placeholder="Enter your price" aria-label="Example text with button addon" aria-describedby="button-addon1" onChange={(e)=>{
+            <div className="input-group mb-3 mt-1 ml-5 mr-5">
+            <input type="number" className="form-control" placeholder="Enter your price" aria-label="Example text with button addon" aria-describedby="button-addon1" onChange={(e)=>{
                                  setpostPrice(e.target.value);
-                                 }} />  <div class="input-group-append">
+                                 }} />  <div className="input-group-append">
                 <button className="btn btn-outline-secondary mr-5" type="submit" onClick={()=>{
                                     var modal = document.querySelector('.modal');
                                     var span = document.getElementsByClassName("btn-close")[0];
@@ -235,7 +235,7 @@ const config = {
                                     ])
                                     .then(res => {
                                     const userInfo = r[0].data.user;
-                                    userInfo.balance = parseInt(userInfo.balance)+ parseInt(price.price);
+                                    userInfo.balance = parseInt(userInfo.balance) + parseInt(price.price);
                                     axios.put(`http://localhost:8080/users/${userInfo.user_id}`,userInfo)
                                     .then(response => {});
                                     });
@@ -268,36 +268,36 @@ const config = {
     <div className='comments_div'>
        {comment === undefined ? '' :
        comment.map((element, index) => {
-       return ( <>
-         <div class="containern">
-<div class="row">
-    <div class="col-md-8n ">
-        <div class="media g-mb-30 media-comment ">
-            <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src={element.user.img} alt="Image Description" />
-            <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30 shadow rounded">
-              <div class="g-mb-15">
-                <h5 class="h5 g-color-gray-dark-v1 mb-0"><b>{element.user.user_name}</b></h5>
-                <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
+       return ( <div key={index}>
+         <div className="containern">
+<div className="row">
+    <div className="col-md-8n ">
+        <div className="media g-mb-30 media-comment ">
+            <img className="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src={element.user.img} alt="Image Description" />
+            <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30 shadow rounded">
+              <div className="g-mb-15">
+                <h5 className="h5 g-color-gray-dark-v1 mb-0"><b>{element.user.user_name}</b></h5>
+                <span className="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
               </div>
         
               <p>{element.content}</p>
         
-              <ul class="list-inline d-sm-flex my-0">
-                <li class="list-inline-item g-mr-20">
-                  <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
-                    <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
+              <ul className="list-inline d-sm-flex my-0">
+                <li className="list-inline-item g-mr-20">
+                  <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                    <i className="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
                     178
                   </a>
                 </li>
-                <li class="list-inline-item g-mr-20">
-                  <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
-                    <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
+                <li className="list-inline-item g-mr-20">
+                  <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                    <i className="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
                     34
                   </a>
                 </li>
-                <li class="list-inline-item ml-auto">
-                  <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
-                    <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
+                <li className="list-inline-item ml-auto">
+                  <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                    <i className="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
                     Reply
                   </a>
                 </li>
@@ -309,10 +309,10 @@ const config = {
 </div>
 
 
-       </>)})}
-       <div class="media g-mb-30 media-comment ">
-            <p class="d-flex g-width-50 g-height-50 g-mt-3 g-mr-15"  />
-       <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30 shadow rounded" src={"fa fa-comment"}>
+       </div>)})}
+       <div className="media g-mb-30 media-comment ">
+            <p className="d-flex g-width-50 g-height-50 g-mt-3 g-mr-15"  />
+       <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30 shadow rounded" src={"fa fa-comment"}>
              <label htmlFor="exampleInputEmail1" className="form-label">Write comment</label>
              <textarea className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  rows="4" cols="50" onChange={(e)=>{
                setAddComeent(e.target.value);

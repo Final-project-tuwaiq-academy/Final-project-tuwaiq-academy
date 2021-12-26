@@ -160,7 +160,7 @@ public class UserService implements UserDetailsService {
                 return ResponseEntity.ok().body("Password is incorrect");
             }
 
-            if (userRepository.findByEmail(data.getEmail()) != null) {
+            if (userRepository.findByEmail(data.getEmail()).getUser_id() != data.getUser_id()) {
                 return ResponseEntity.ok().body("Email already exists");
             }
 

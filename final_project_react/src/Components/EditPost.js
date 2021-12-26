@@ -75,14 +75,14 @@ function EditPost() {
     		
     		    
     		    <div className="form-group has-error">
-    		        <label for="slug">Title</label>
+    		        <label htmlFor="slug">Title</label>
     		        <input type="text" className="form-control" name="slug" placeholder={post.title} onChange={(e)=>{
                   settitle(e.target.value);
                 }}/>
     		    </div>
     		    
     		    <div className="form-group">
-    		        <label for="title">City</label>
+    		        <label htmlFor="title">City</label>
                 <select defaultValue="" id="inputState" className="form-control" onChange={(e)=>{
                   setCity(e.target.value);
                 }}>
@@ -101,7 +101,7 @@ function EditPost() {
     		    </div>
 
             <div className="form-group">
-    		        <label for="title">Mazad Type</label>
+    		        <label htmlFor="title">Mazad Type</label>
                 <select defaultValue=""  id="inputState" className="form-control" onChange={(e)=>{
                   setType(e.target.value);
                 }}>
@@ -115,14 +115,16 @@ function EditPost() {
     		 
 
     		    <div className="form-group">
-    		        <label for="description">Description</label>
+    		        <label htmlFor="description">Description</label>
     		        <textarea rows="5" className="form-control" placeholder={post.content} name="description" onChange={(e)=>{
                   setDescription(e.target.value);
                 }}></textarea>
     		    </div>
-            <label for="formFileSm" className="form-label">Picture</label>
+            <label htmlFor="formFileSm" className="form-label">Picture</label>
            
             {img === '' ? '' :<div className='wrapper-add-post'> <img src={img} height="50%"/><br></br> </div>}
+
+
 
             {loding ?  <>     <br></br> <p className='text-center'>    <div className="spinner-border text-secondary" role="status">
               <span className="sr-only text-center">Loading...</span>
@@ -130,16 +132,14 @@ function EditPost() {
             <input className="form-control mb-4" type="file" id="formFileMultiple" accept="image/png, image/gif, image/jpeg" multiple onChange={(e)=>{
                   uploadImg(e);
                 }} />  
+                
+                
+              
 
 
     		    
     		    <div className="form-group text-center">
     		        <button type="button" className="btn btn-primary" onClick={()=>{
-                  if(title === ''){title = post.title}
-                  if(city === ''){city = post.city}
-                  if(description === ''){description = post.content}
-                  if(img === ''){img = post.images}
-                  if(type === ''){type = post.type}
                 
                                 post.title = title
                                 post.city = city

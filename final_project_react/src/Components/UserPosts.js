@@ -143,7 +143,7 @@ const cheekUser =()=>{
                 <div className="text-center my-5">
                     <h1 className="display-5 fw-bolder  mb-2 add-post-text">You don't have any posts</h1>
                     <div className="d-grid gap-3 d-sm-flex justify-content-sm-center mt-5">
-                        <a className="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started with new post</a>
+                        <a className="btn btn-primary btn-lg px-4 me-sm-3" href="/add_post">Get Started with new post</a>
                     </div>
                 </div>
             </div>

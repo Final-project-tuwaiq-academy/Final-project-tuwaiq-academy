@@ -95,6 +95,26 @@ public class PostService {
         int post_id = Integer.valueOf(id);
         Post post = postRepository.findById(post_id).orElse(null);
 
+        if(data.getTitle().equals("")){
+            data.setTitle(post.getTitle());
+        }
+
+        if(data.getCity().equals("")){
+            data.setCity(post.getCity());
+        }
+
+        if(data.getPost_type().equals("")){
+            data.setPost_type(post.getPost_type());
+        }
+
+        if(data.getContent().equals("")){
+            data.setContent(post.getContent());
+        }
+        if(data.getImages().equals("")){
+            data.setImages(post.getImages());
+        }
+
+
         if (post != null){
             post.setTitle(data.getTitle());
             post.setContent(data.getContent());

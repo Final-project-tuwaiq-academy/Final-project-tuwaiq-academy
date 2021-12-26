@@ -69,14 +69,14 @@ const uploadImg = async (e) =>{
     		
     		    
     		    <div className="form-group has-error">
-    		        <label for="slug">Title</label>
+    		        <label htmlFor="slug">Title</label>
     		        <input type="text" className="form-control" name="slug" onChange={(e)=>{
                   settitle(e.target.value);
                 }}/>
     		    </div>
     		    
     		    <div className="form-group">
-    		        <label for="title">City </label>
+    		        <label htmlFor="title">City </label>
                 <select defaultValue="" id="inputState" className="form-control" onChange={(e)=>{
                   setCity(e.target.value);
                 }}>
@@ -95,7 +95,7 @@ const uploadImg = async (e) =>{
     		    </div>
 
             <div className="form-group">
-    		        <label for="title">Mazad Type</label>
+    		        <label htmlFor="title">Mazad Type</label>
                 <select defaultValue=""  id="inputState" className="form-control" onChange={(e)=>{
                   setType(e.target.value);
                 }}>
@@ -107,7 +107,7 @@ const uploadImg = async (e) =>{
     		    </div>
     		    
     		    <div className="form-group has-error">
-    		        <label for="slug">Price</label>
+    		        <label htmlFor="slug">Price</label>
     		        <input type="number" className="form-control" name="slug" onChange={(e)=>{
                   setPrice(e.target.value);
                 }}/>
@@ -115,18 +115,18 @@ const uploadImg = async (e) =>{
 
 
     		    <div className="form-group">
-    		        <label for="description">Description</label>
+    		        <label htmlFor="description">Description</label>
     		        <textarea rows="5" className="form-control" name="description" onChange={(e)=>{
                   setDescription(e.target.value);
                 }}></textarea>
     		    </div>
-            <label for="formFileSm" className="form-label">Picture 
+            <label htmlFor="formFileSm" className="form-label">Picture 
             </label>
             {img === '' ? '' :<div className='wrapper-add-post'> <img src={img} height="50%"/><br></br> </div>}
 
-            {loding ?  <p className='text-center'>     <br></br>    <div className="spinner-border text-secondary" role="status">
+            {loding ?  <div className='text-center'>     <br></br>    <div className="spinner-border text-secondary" role="status">
               <span className="sr-only text-center">Loading...</span>
-            </div> <br></br>  </p>  :<>
+            </div> <br></br>  </div>  :<>
             <input className="form-control mb-4" type="file" id="formFileMultiple" accept="image/png, image/gif, image/jpeg" multiple onChange={(e)=>{
                   uploadImg(e);
                 }} />  
