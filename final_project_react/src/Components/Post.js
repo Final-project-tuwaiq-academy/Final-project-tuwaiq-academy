@@ -245,7 +245,7 @@ const config = {
                                     "user": user,
                                     }
                                     axios.put(`http://localhost:8080/post_price/${post.post_id}`,updatePostPrice)
-                                    .then(response => {});
+                                    .then(response => {console.log(response)});
                                     user.balance =parseInt(user.balance) - parseInt(postPrice);
                                     axios.put(`http://localhost:8080/users/${user.user_id}`,user)
                                     .then(response => {});
@@ -310,6 +310,8 @@ const config = {
 
 
        </div>)})}
+       
+       {state.user.user_id === undefined ? '' : 
        <div className="media g-mb-30 media-comment ">
             <p className="d-flex g-width-50 g-height-50 g-mt-3 g-mr-15"  />
        <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30 shadow rounded" src={"fa fa-comment"}>
@@ -331,7 +333,7 @@ const config = {
           }}>Submit</button></p>
           </div>
           
-          </div>
+          </div>}
 
       
     </div>

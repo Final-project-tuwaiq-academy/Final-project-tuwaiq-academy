@@ -47,7 +47,7 @@ const uploadImg = async (e) =>{
   setLoding(true);
 
   const res = await fetch("https://api.cloudinary.com/v1_1/dtqxphvwc/image/upload",
-  {
+  { 
     method:'POST',
     body:data
   })

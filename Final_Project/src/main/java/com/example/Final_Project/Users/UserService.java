@@ -1,5 +1,7 @@
 package com.example.Final_Project.Users;
 
+import com.example.Final_Project.Messages.MessageRepository;
+import com.example.Final_Project.Posts.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,17 +21,24 @@ import java.util.regex.Pattern;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final RoleRepo roleRepo;
+    private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
+    private final MessageRepository messageRepository;
+    private final PostService postService;
+    private final RoleRepo roleRepo;
+
 
 
 
 
     @Autowired
-    public UserService(UserRepository userRepository, RoleRepo roleRepo, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, RoleService roleService, PasswordEncoder passwordEncoder, MessageRepository messageRepository, PostService postService, RoleRepo roleRepo) {
         this.userRepository = userRepository;
-        this.roleRepo = roleRepo;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
+        this.messageRepository = messageRepository;
+        this.postService = postService;
+        this.roleRepo = roleRepo;
     }
 
     @Override
@@ -41,9 +50,7 @@ public class UserService implements UserDetailsService {
 
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        user.getRoles().forEach(role -> {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        });
+            authorities.add(new SimpleGrantedAuthority(roleRepo.findByUser_User_id(user.getUser_id()).getName()));
         return new org.springframework.security.core.userdetails.User(user.getUser_name(), user.getPassword(), authorities);
     }
 
@@ -100,12 +107,12 @@ public class UserService implements UserDetailsService {
         }
 
 
-        Role role = roleRepo.findById(Long.valueOf(2)).orElse(null);
-        user.getRoles().add(role);
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setImg("https://res.cloudinary.com/dtqxphvwc/image/upload/v1640244759/jeykewbu/ghuemwc7266ws0a2mgql.png");
 
         userRepository.save(user);
+        roleService.saveRole(new Role(), user);
         return ResponseEntity.ok().body("ok");
     }
 
@@ -114,6 +121,8 @@ public class UserService implements UserDetailsService {
 
     public void deleteUser(String id){
         int user_id = Integer.valueOf(id);
+        postService.deleteUserPosts(id);
+        roleRepo.deleteByUser(user_id);
         userRepository.deleteById(user_id);
 
     }
@@ -123,11 +132,8 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findById(user_id).orElse(null);
 
 
-        if(data.getBalance() > 0 ){
-            user.setBalance(data.getBalance());
-        }
-        else {
 
+            user.setBalance(user.getBalance() + data.getBalance());
 
             String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -158,11 +164,24 @@ public class UserService implements UserDetailsService {
             }
             else if(! m.matches()) {
                 return ResponseEntity.ok().body("Password is incorrect");
+            }else {
+                user.setPassword(passwordEncoder.encode(data.getPassword()));
             }
 
+        regex = "^[a-zA-Z0-9._-]{3,}$";
+        p = Pattern.compile(regex);
+        m = p.matcher(user.getUser_name());
+        if(data.getUser_name().equals("") ||  (data.getUser_name() == null)){
+            data.setUser_name(user.getUser_name());
+        }
+        else if(! m.matches()){
+            return ResponseEntity.ok().body("Username is incorrect");
+        }
+
+            if(userRepository.findByEmail(data.getEmail()) != null){
             if (userRepository.findByEmail(data.getEmail()).getUser_id() != data.getUser_id()) {
                 return ResponseEntity.ok().body("Email already exists");
-            }
+            }}
 
             if (! data.getImg().equals("")){
                 user.setImg(data.getImg());
@@ -172,8 +191,7 @@ public class UserService implements UserDetailsService {
             user.setBalance(data.getBalance());
             user.setEmail(data.getEmail());
             user.setPhone(data.getPhone());
-            user.setPassword(passwordEncoder.encode(data.getPassword()));
-        }
+
             userRepository.save(user);
 
     return ResponseEntity.ok().body("ok");   }

@@ -26,9 +26,6 @@ public class User {
     private String img;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> roles = new ArrayList<>();
-
     public User() {
     }
 
@@ -40,7 +37,7 @@ public class User {
         Password = password;
         this.balance = balance;
         this.img = img;
-        this.roles = roles;
+
     }
 
     public String getImg() {
@@ -49,14 +46,6 @@ public class User {
 
     public void setImg(String img) {
         this.img = img;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
     }
 
     public float getBalance() {

@@ -1,6 +1,6 @@
 import '../App.css';
 import Logo from '../Img/m.png'
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from 'axios'
@@ -60,12 +60,16 @@ function Navbar() {
   <ul className="dropdown-menu li-nav">
     <li><a href="/profile" className="dropdown-item text-center"><i className="fa fa-user mr-2" aria-hidden="true"></i>
  Profile</a></li>
+ {user.user_name === 'ADMIN' ?
+ <li>
+ <a href="/admin" className="dropdown-item text-center"><i className="fa fa-cog mr-2" aria-hidden="true"></i>
+ Admin page</a>
+ </li> :''} 
     <li><hr className="dropdown-divider" /></li>
     <li><a href="/" className="dropdown-item text-center" onClick={()=>{localStorage.clear()}}> <i className="fa fa-sign-out mr-1" aria-hidden="true"></i> <b>Logout</b></a></li>
   </ul>
       </li>
-
-                    
+           
                     </> }
                 </div>
             </div>

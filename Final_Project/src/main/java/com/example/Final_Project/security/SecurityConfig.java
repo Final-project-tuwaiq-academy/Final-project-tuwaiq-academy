@@ -1,5 +1,6 @@
 package com.example.Final_Project.security;
 
+import com.example.Final_Project.Posts.Post;
 import com.example.Final_Project.Users.UserRepository;
 import com.example.Final_Project.filter.CustomAuthenticationFilter;
 import com.example.Final_Project.filter.CustomAuthorizationFilter;
@@ -19,6 +20,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
@@ -56,13 +58,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+
         // Define the authorization patterns below
         http.authorizeRequests().anyRequest().permitAll();
-
 //        http.authorizeRequests().antMatchers(POST, "/login").permitAll();
+//        http.authorizeRequests().antMatchers(POST, "/users/**").permitAll();
+//        http.authorizeRequests().antMatchers(GET, "/users/**").permitAll();
+//        http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/posts/**").permitAll();
+//        http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/post_price/**").permitAll();
+//        http.authorizeRequests().antMatchers(GET, "/users/{id}").permitAll();
+
 //        http.authorizeRequests().antMatchers(POST,"/users/").permitAll();
 //        http.authorizeRequests().antMatchers(POST,"/roles/").permitAll();
 //        http.authorizeRequests().antMatchers( "/posts/{id}").hasAnyAuthority("USER");
+//        http.authorizeRequests().antMatchers( "/posts/{id}").hasAnyAuthority("USER");
+//        http.authorizeRequests().antMatchers( "/comments").hasAnyAuthority("USER");
+//        http.authorizeRequests().antMatchers( "/favorite").hasAnyAuthority("USER");
+//        http.authorizeRequests().antMatchers( "/messages").hasAnyAuthority("USER");
+//        http.authorizeRequests().antMatchers( "/notifications").hasAnyAuthority("USER");
+//        http.authorizeRequests().antMatchers( "/notifications").hasAnyAuthority("USER");
+
 //        http.authorizeRequests().antMatchers( "/users/{id}").hasAnyAuthority("USER");
 //        http.authorizeRequests().antMatchers( "/users").hasAnyAuthority("ADMIN");
 //        http.authorizeRequests().antMatchers(POST, "/admin/**").hasAnyAuthority("ADMIN");

@@ -972,7 +972,32 @@ margin-bottom: 2%;
   border-right: 1px solid white;
   border-top: 1px solid white;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-weight: 500;
+  font-weight: 800;
+  background-color: #f2e9e4;
+  
+}
+.Auctions_Nav_btn2{
+  padding-top:1%;
+  padding-bottom:1%;
+  border: none;
+  border-right: 1px solid white;
+  border-top: 1px solid white;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 800;
+  background-color: #22223b;
+  color: white;
+  
+}
+.Auctions_Nav_btn3{
+  padding-top:1%;
+  padding-bottom:1%;
+  border: none;
+  border-right: 1px solid white;
+  border-top: 1px solid white;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 800;
+  background-color: #22223b;
+  color: white;
   
 }
 
@@ -1079,4 +1104,88 @@ margin-bottom: 2%;
   height: 100%;
   width: 100%;
   object-fit: contain;
+}
+/* --------------------------------admin------------------- */
+.order-card {
+  color: #fff;
+}
+.container-admin{
+  margin: 5%;
+}
+.bg-c-blue {
+  background: linear-gradient(45deg,#4099ff,#73b4ff);
+}
+
+.bg-c-green {
+  background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+}
+
+.bg-c-yellow {
+  background: linear-gradient(45deg,#FFB64D,#ffcb80);
+}
+
+.bg-c-pink {
+  background: linear-gradient(45deg,#FF5370,#ff869a);
+}
+
+
+.card {
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+  border: none;
+  margin-bottom: 30px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+  padding: 25px;
+}
+
+.order-card i {
+  font-size: 26px;
+}
+
+.f-left {
+  float: left;
+}
+
+.f-right {
+  float: right;
+}
+.card-admin-users{
+  background-color: #22223b;
+}
+.card-admin-posts{
+  background-color: #1e385c;
+
+}
+.row-admin{
+ margin-top: 13%;
+ margin-bottom: 10%;
+}
+.card-admin-comments{
+  background-color: #9a8c98;
+
+}
+.card-admin-messages{
+  background-color: #c9ada7;
+
+}
+.card-admin-notifications{
+  background-color: #4a4e69;
+
+}
+.card-admin-favorite{
+  background-color: #4ba3c3;
+}
+.link-admin:hover {
+
+  text-decoration: none;
+}
+/* --------------------------------admin------------------- */
+
+.users_table{
+  margin: 10%;
 }

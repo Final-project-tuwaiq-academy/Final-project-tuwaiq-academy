@@ -153,13 +153,43 @@ const cheekUser =(post_id)=>{
 
 <div className="container_Auctions_Nav ">
   <div className="row">
-    <button className="col-sm bg-transparent Auctions_Nav_btn1 text-light" onClick={()=>{setAuctionsState('Open')}}>
+    <button className="col-sm  Auctions_Nav_btn1" id='Auctions_Nav_btn1' onClick={()=>{setAuctionsState('Open')
+    document.querySelector("#Auctions_Nav_btn1").style = "background-color: #f2e9e4; color: black;";
+    document.querySelector("#Auctions_Nav_btn2").style = "background-color: #22223b; color: white;";
+    document.querySelector("#Auctions_Nav_btn3").style = "background-color: #22223b; color: white;";
+    
+    
+    }}>
     Open auctions
     </button>
-    <button className="col-sm bg-transparent Auctions_Nav_btn1 text-light" onClick={()=>{setAuctionsState('Close')}}>
+    <button className="col-sm  Auctions_Nav_btn2" id='Auctions_Nav_btn2' onClick={()=>{setAuctionsState('Close')
+        document.querySelector("#Auctions_Nav_btn2").style = "background-color: #f2e9e4; color: black;";
+    document.querySelector("#Auctions_Nav_btn1").style = "background-color: #22223b; color: white;";
+    document.querySelector("#Auctions_Nav_btn3").style = "background-color: #22223b; color: white;";}}>
     Closed auctions
     </button>
-    <button className="col-sm bg-transparent Auctions_Nav_btn1 text-light" onClick={()=>{window.location = "/add_post"}}>
+    <button className="col-sm  Auctions_Nav_btn3 text-light" id='Auctions_Nav_btn3' onClick={()=>{
+          var modal = document.querySelector('.modal');
+                                    var span = document.getElementsByClassName("btn-close")[0];
+                                    var span2 = document.getElementsByClassName("close_btn")[0];
+                                    span.onclick = function() {
+                                    modal.style.display = "none";
+                                    }
+                                    span2.onclick = function() {
+                                    modal.style.display = "none";
+                                    }
+                                    window.onclick = function(event) {
+                                    if (event.target == modal) {
+                                    modal.style.display = "none";
+                                    }
+                                    }
+            if(localStorage.getItem('user') === null){
+   modal.style.display = "block";
+   document.querySelector('.modal-title').innerHTML = 'Login'
+   document.querySelector('.error_text').innerHTML = 'You must first log in to enter the auction'
+   return
+   }else{
+       window.location = "/add_post"}}}>
     Add new auction
     </button>
   </div>

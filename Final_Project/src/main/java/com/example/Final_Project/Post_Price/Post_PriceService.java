@@ -52,7 +52,7 @@ public class Post_PriceService {
 
     public void updatePost_Price(String id, Post_Price data){
         int post_price_id = Integer.valueOf(id);
-        Post_Price post_Price = post_PriceRepository.findById(post_price_id).orElse(null);
+        Post_Price post_Price = post_PriceRepository.findByPost_id(post_price_id);
         User user = userRepository.findById(data.getUser().getUser_id()).orElse(null);
 
         if (post_Price != null){

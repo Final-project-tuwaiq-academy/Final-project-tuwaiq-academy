@@ -106,12 +106,19 @@ function Payment() {
         if(balance < 0){setError('Username is incorrect'); return;}
 
           user.balance =parseInt(user.balance) + parseInt(balance);
+          user.email = ''
+          user.phone = ''
+          user.password = ''
+          user.user_name = ''
           axios.put(`http://localhost:8080/users/${user.user_id}`,user)
                                 .then(response => {
-                                  console.log(response)
+                                  if(response.data === 'ok'){
+                                    setError('')
+                                    window.location.reload();
+                                  }
                                 });
-                                setError('')
-                                window.location.reload();
+                                
+
 
 }}><b>Add card</b></button></p>
     </div>

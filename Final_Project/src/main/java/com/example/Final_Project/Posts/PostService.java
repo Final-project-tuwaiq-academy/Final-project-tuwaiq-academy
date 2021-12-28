@@ -91,6 +91,15 @@ public class PostService {
         postRepository.deleteById(post_id);
     }
 
+    public void deleteUserPosts(String id){
+        int user_id = Integer.valueOf(id);
+        List<Post> posts = postRepository.findAllByUser_id(user_id);
+        for (int i = 0 ; i < posts.size() ;i++){
+            deletePost(String.valueOf(posts.get(i).getPost_id()));
+        }
+
+    }
+
     public void updatePost(String id, Post data){
         int post_id = Integer.valueOf(id);
         Post post = postRepository.findById(post_id).orElse(null);

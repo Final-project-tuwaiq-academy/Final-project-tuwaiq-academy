@@ -1,11 +1,8 @@
 import '../App.css';
-import { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios'
 import { addUsers, addToken } from '../reducers/Users/Action';
-import jwt from 'jwt-decode'
 import jwtDecode from 'jwt-decode';
 
 

@@ -12,6 +12,11 @@ import Home from './Components/Home';
 import Payment from './Components/Payment';
 import AddPost from './Components/AddPost';
 import EditPost from './Components/EditPost';
+import AdminPage from './Components/AdminPage';
+import UsersPageForAdmin from './Components/UsersPageForAdmin';
+import EditUserPageForAdmin from './Components/EditUserPageForAdmin';
+import PostsPageForAdmin from './Components/PostsPageForAdmin';
+import CommentsPageForAdmin from './Components/CommentsPageForAdmin';
 
 
 function App() {
@@ -30,6 +35,11 @@ function App() {
         <Route path="/add_post"  element={<AddPost />} />
         <Route path="/payment"  element={<Payment />} />
         <Route path="/edit_post/:id"  element={<EditPost />} />
+        <Route path="/admin"  element={<AdminPage />} />
+        <Route path="/admin/users"  element={<UsersPageForAdmin />} />
+        <Route path="/admin/posts"  element={<PostsPageForAdmin />} />
+        <Route path="/admin/comments"  element={<CommentsPageForAdmin />} />
+        <Route path="/admin/edit_user/:id"  element={<EditUserPageForAdmin />} />
         <Route path="/"  element={<Home />} />
 
       </Routes>
