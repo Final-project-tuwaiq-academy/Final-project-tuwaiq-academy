@@ -15,6 +15,8 @@ public class Post {
     private String title;
     private String date;
     private String city;
+
+    @Column(columnDefinition="TEXT")
     private String content;
     private String images;
     private String post_type;

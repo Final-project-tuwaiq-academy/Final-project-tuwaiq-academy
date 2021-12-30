@@ -9,6 +9,7 @@ import axios from 'axios'
 function Navbar() {
 
     const [user, setUser] = useState();
+    const [favorite, setFavorite] = useState();
 
 
     const state = useSelector((state) => {
@@ -19,6 +20,9 @@ function Navbar() {
 
 
       useEffect(() => {
+
+
+
         if(state.user.user_id !== undefined){
         axios.all([
           axios.get(`http://localhost:8080/users/${state.user.user_id}`)
@@ -26,10 +30,18 @@ function Navbar() {
         .then(r => {
           setUser(r[0].data);
            });
-        }
+        
 
-          }
-      
+        axios.all([
+          axios.get(`http://localhost:8080/favorite/${state.user.user_id}`)
+        ])
+        .then(r => {
+          setFavorite(r[0].data);
+           });    
+
+
+      } }
+
       ,[]);
 
   return (
@@ -47,7 +59,15 @@ function Navbar() {
                 <div className="navbar-nav ms-auto">
                     <a href="/" className="nav-item nav-link active text-white"><b>Home</b></a>
                     <a href="/auctions" className="nav-item nav-link text-white"><b>Auctions</b></a>
+
+                    
                     {user === undefined ? '' :<>
+                    
+                    <a href="/favorite" className="notification nav-item nav-link active text-white">
+  <span><b>Favorite</b></span>
+  {favorite === undefined ?  <span className="badge">0</span>: <span className="badge">{favorite.length}</span>}
+ 
+</a>
                     <a  className="nav-item nav-link text-white" href='/payment'><b>{user.balance}$</b></a>
                     </>}
                 </div>

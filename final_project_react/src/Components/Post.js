@@ -254,8 +254,7 @@ const config = {
                                     // Get the modal
                                     }}>Buy</button>  </div>
 </div>
-
-            </div>
+</div>
         </div>
     </small>
                 </div>
@@ -286,13 +285,13 @@ const config = {
                 <li className="list-inline-item g-mr-20">
                   <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
                     <i className="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
-                    178
+                    0
                   </a>
                 </li>
                 <li className="list-inline-item g-mr-20">
                   <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
                     <i className="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
-                    34
+                    0
                   </a>
                 </li>
                 <li className="list-inline-item ml-auto">

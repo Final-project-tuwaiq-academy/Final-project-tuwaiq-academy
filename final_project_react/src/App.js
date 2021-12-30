@@ -17,6 +17,7 @@ import UsersPageForAdmin from './Components/UsersPageForAdmin';
 import EditUserPageForAdmin from './Components/EditUserPageForAdmin';
 import PostsPageForAdmin from './Components/PostsPageForAdmin';
 import CommentsPageForAdmin from './Components/CommentsPageForAdmin';
+import Favorite from './Components/Favorite';
 
 
 function App() {
@@ -40,6 +41,8 @@ function App() {
         <Route path="/admin/posts"  element={<PostsPageForAdmin />} />
         <Route path="/admin/comments"  element={<CommentsPageForAdmin />} />
         <Route path="/admin/edit_user/:id"  element={<EditUserPageForAdmin />} />
+        <Route path="/favorite"  element={<Favorite />} />
+
         <Route path="/"  element={<Home />} />
 
       </Routes>

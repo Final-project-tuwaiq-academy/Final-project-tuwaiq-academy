@@ -4,7 +4,6 @@ import { useState } from "react";
 import axios from 'axios'
 import { useSelector } from "react-redux";
 
-
 function Auctions() {
 
   const [posts, setPosts] = useState();
@@ -15,6 +14,7 @@ function Auctions() {
   const [auctionsState, setAuctionsState] = useState('Open');
   const [postPrice, setpostPrice] = useState();
   const [user, setUser] = useState();
+  const [favorite, setFavorite] = useState();
 
 
   const state = useSelector((state) => {
@@ -33,6 +33,15 @@ function Auctions() {
       .then(r => {
         setUser(r[0].data);
          });
+     
+         axios.all([
+            axios.get(`http://localhost:8080/favorite/${state.user.user_id}`)
+          ])
+          .then(r => {
+            setFavorite(r[0].data);
+             });
+     
+     
       }
 
     axios.all([
@@ -75,6 +84,8 @@ function Auctions() {
         setPrice(r[0].data);
          });
 
+
+
         
       }, 1000)
       return ()=> {
@@ -103,17 +114,21 @@ const cheekUser =(post_id)=>{
   return 0
   }
 
-
-  
-  
-  
-
+  const cheekFavorite =(post_id)=>{
+   for(let i = 0 ; i < favorite.length ;i++){
+     if(post_id === favorite[i].post.post_id){
+       if(favorite[i].user.user_id === state.user.user_id)
+       return favorite[i].favorite_id;
+     }
+   }
+   return -1
+   }
 
 
   return (
 <>
 {/* ----------------------Search------------------------------- */}
-<div className='bg-darkk py-5'>
+<div className='bg-darkk py-5 '>
 <div className=" mt-5 m-lg-5 ">
    <input type="text" className="form-control Text_search" id="inputAddress" placeholder="Search by auction name" onChange={(e)=>{setSearch(e.target.value);}}/>
 </div>
@@ -146,6 +161,7 @@ const cheekUser =(post_id)=>{
       </select>
    </div>
 </div>
+
 </div>
 {/* ----------------------Search------------------------------- */}
 
@@ -159,11 +175,8 @@ const cheekUser =(post_id)=>{
     document.querySelector("#Auctions_Nav_btn3").style = "background-color: #22223b; color: white;";
     
     
-    }}>
-    Open auctions
-    </button>
-    <button className="col-sm  Auctions_Nav_btn2" id='Auctions_Nav_btn2' onClick={()=>{setAuctionsState('Close')
-        document.querySelector("#Auctions_Nav_btn2").style = "background-color: #f2e9e4; color: black;";
+    }}>Open auctions</button><button className="col-sm  Auctions_Nav_btn2" id='Auctions_Nav_btn2' onClick={()=>{setAuctionsState('Close')
+    document.querySelector("#Auctions_Nav_btn2").style = "background-color: #f2e9e4; color: black;";
     document.querySelector("#Auctions_Nav_btn1").style = "background-color: #22223b; color: white;";
     document.querySelector("#Auctions_Nav_btn3").style = "background-color: #22223b; color: white;";}}>
     Closed auctions
@@ -197,6 +210,8 @@ const cheekUser =(post_id)=>{
 
 {/* ----------------------Nav------------------------------------- */}
 
+
+
 <div className='container container_Auctions'>
    {  posts === undefined ? '' :
    posts.map((element, index) => {
@@ -208,10 +223,44 @@ const cheekUser =(post_id)=>{
          <div className="row">
             <div className="cols-sm-6 cols-md-6 cols-lg-6">
                <div className="food-card food-card--vertical">
+
+
+               {favorite !== undefined && cheekFavorite(element.post_id) !== -1?                   
+               <div className="food-card_img">
+                     <img src={element.images} alt="" />
+                     <a href="#" onClick={()=>{
+                         axios.all([
+                        axios.delete(`http://localhost:8080/favorite/${cheekFavorite(element.post_id)}`)
+                    ])
+                    .then(r => {axios.all([
+                       
+            axios.get(`http://localhost:8080/favorite/${state.user.user_id}`)])
+          .then(res => {
+            setFavorite(res[0].data);
+            console.log(res)
+             });
+             });
+                    }}><i className="fa fa-heart-o i-img"></i></a>
+                  </div> : 
                   <div className="food-card_img">
                      <img src={element.images} alt="" />
-                     <a href={`post/${element.post_id}`}><i className="fa fa-heart"></i></a>
-                  </div>
+                     <a href="#" onClick={()=>{
+                        const favorite = {
+                           "favorite":{},
+                           "post_id":element.post_id,
+                           "user_id":state.user.user_id
+                        } 
+                  axios.post(`http://localhost:8080/favorite`, favorite)
+                                          .then(response => {
+
+                                          });
+
+
+                     }}><i className="fa fa-heart-o"></i></a>
+                  </div>}
+
+
+
                   <div className="food-card_content">
                      <div className="food-card_title-section">
                         <a href={`post/${element.post_id}`} className="food-card_title">{element.title}</a>
@@ -258,10 +307,42 @@ const cheekUser =(post_id)=>{
          <div className="row">
             <div className="cols-sm-6 cols-md-6 cols-lg-6">
                <div className="food-card food-card--vertical">
+               {favorite !== undefined && cheekFavorite(element.post_id) !== -1?  
+                 <div className="food-card_img">
+                     <img src={element.images} alt="" />
+                     <a href="#" onClick={()=>{
+                         axios.all([
+                        axios.delete(`http://localhost:8080/favorite/${cheekFavorite(element.post_id)}`)
+                    ])
+                    .then(r => {axios.all([
+                       
+            axios.get(`http://localhost:8080/favorite/${state.user.user_id}`)])
+          .then(res => {
+            setFavorite(res[0].data);
+            console.log(res)
+             });
+             });
+                    }}><i className="fa fa-heart-o i-img"></i></a>
+                  </div> : 
                   <div className="food-card_img">
                      <img src={element.images} alt="" />
-                     <a href={`post/${element.post_id}`}><i className="fa fa-heart"></i></a>
-                  </div>
+                     <a href="#" onClick={()=>{
+                        const favorite = {
+                           "favorite":{},
+                           "post_id":element.post_id,
+                           "user_id":state.user.user_id
+                        } 
+                                          axios.all([
+                        axios.post(`http://localhost:8080/favorite`, favorite)
+                    ])
+                    .then(r => {axios.all([
+                       
+            axios.get(`http://localhost:8080/favorite/${state.user.user_id}`)])
+          .then(res => {
+            setFavorite(res[0].data);
+             });});
+                     }}><i className="fa fa-heart-o"></i></a>
+                  </div>}
                   <div className="food-card_content">
                      <div className="food-card_title-section">
                         <a href={`post/${element.post_id}`} className="food-card_title">{element.title}</a>
