@@ -1335,15 +1335,12 @@ a {
   grid-template-columns: 1fr 1fr;
   column-gap: 20%;
   row-gap: 6%;
-
 }
 /* ---------------------------------------------------------- */
 .notification {
 
   position: relative;
 }
-
-
 
 .notification .badge {
   position: absolute;

@@ -75,7 +75,7 @@ function AdminPage() {
                 <div className="card-block">
                     <h6 className="m-b-20">Messages</h6>
                     <h2 className="text-right mt-2"><i className="fa fa-envelope f-left"></i><br></br></h2>
-                    <p className="m-b-0">Number of messages<span className="f-right">351</span></p>
+                    <p className="m-b-0">Number of messages<span className="f-right">0</span></p>
                 </div>
             </div>
         </a>

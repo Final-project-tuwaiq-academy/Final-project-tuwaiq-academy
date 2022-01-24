@@ -2,11 +2,6 @@ import '../App.css';
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from 'axios'
-import { useSelector } from "react-redux";
-
-
-
-
 
 function UsersPageForAdmin() {
     const [users, setUsers] = useState();
@@ -22,7 +17,6 @@ function UsersPageForAdmin() {
           
     
             },[]);
-
 
   return (
  <div className='users_table'>

@@ -445,7 +445,6 @@ const cheekUser =(post_id)=>{
                                     axios.put(`http://localhost:8080/users/${user.user_id}`,user)
                                     .then(response => {});
                                     setpostPrice(undefined)
-                                    window.location.reload(); 
                                     // Get the modal
                                     }}><i className="fa fa-plus"></i></button>
                                  </div>

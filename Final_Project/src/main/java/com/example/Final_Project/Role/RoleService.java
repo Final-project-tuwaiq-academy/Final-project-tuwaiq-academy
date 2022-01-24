@@ -18,7 +18,6 @@ public class RoleService {
     }
 
     public Role saveRole(Role role, User user){
-        role.setId(Long.valueOf(2));
         role.setName("USER");
         role.setUser(user);
         return roleRepo.save(role);

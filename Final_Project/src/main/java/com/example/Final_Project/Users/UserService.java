@@ -132,8 +132,10 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findById(user_id).orElse(null);
 
 
-
-            user.setBalance(user.getBalance() + data.getBalance());
+            if(user.getBalance() != data.getBalance()){
+            user.setBalance(data.getBalance());
+            userRepository.save(user);
+            return ResponseEntity.ok().body("ok");}
 
             String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";

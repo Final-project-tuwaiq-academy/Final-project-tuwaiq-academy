@@ -1,6 +1,6 @@
 import '../App.css';
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from 'axios'
 import { addUsers, addToken } from '../reducers/Users/Action';
 import jwtDecode from 'jwt-decode';

@@ -2,7 +2,6 @@ import '../App.css';
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from 'axios'
-import { useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
 
 
@@ -11,7 +10,6 @@ import { useParams } from 'react-router-dom';
 
 function EditUserPageForAdmin() {
     const [user, setUser] = useState();
-    const [userId, setUserId] = useState('');
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');

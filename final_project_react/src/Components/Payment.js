@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from 'axios'
+import StripeCheckout from 'react-stripe-checkout';
 
 
 
@@ -31,11 +32,39 @@ function Payment() {
       ])
       .then(r => {
         setUser(r[0].data);
+
          });
       
         }},[]);
 
- 
+
+       const onToken = (token) => {
+          fetch('/pk_test_51KISOjC1rUoqBsLfzZg43azPutLX76mg6PtXYD3pkMs7l51e0WKC16Jn3Pva8fz85CufmmdMk4rpm2bqE0aKlMAZ00E9yhPo6j', {
+            method: 'POST',
+            body: JSON.stringify(token),
+          }).then(response => {
+            response.json().then(data => {
+              alert(`We are in business, ${data.email}`);
+              
+            });
+          });
+
+          if(balance < 0){setError('Username is incorrect'); return;}
+
+          user.balance =parseInt(user.balance) + parseInt(balance);
+          user.email = ''
+          user.phone = ''
+          user.password = ''
+          user.user_name = ''
+          axios.put(`http://localhost:8080/users/${user.user_id}`,user)
+                                .then(response => {
+                                  if(response.data === 'ok'){
+                                    setError('')
+                                    window.location.reload();
+                                  }
+                                });
+
+        }
 
   return (
 <div className='container_Payment'>
@@ -79,29 +108,26 @@ function Payment() {
         </ul>
     </div>
     <div className='form-payment'> 
-        
-         <span id="card-header">Add your card:</span>
+
         <div className="row-1">
             <div className="row row-2"> <span id="card-inner">Enter the amount</span> </div>
             <div className="row row-2"> <input className='input-payment' type="number" onChange={(e)=>{
               setBalance(e.target.value);
-            }} placeholder="Enter the amount you want to deposit" /> </div>
+            }} placeholder="1000 $" /> </div>
         </div>
-        <div className="row-1">
-            <div className="row row-2"> <span id="card-inner">Card holder name</span> </div>
-            <div className="row row-2"> <input className='input-payment' type="text" placeholder="Your Name" /> </div>
-        </div>
-        <div className="row three">
-            <div className="col-7">
-                <div className="row-1">
-                    <div className="row row-2"> <span id="card-inner">Card number</span> </div>
-                    <div className="row row-2"> <input className='input-payment' type="text" placeholder="5134-5264-4" /> </div>
-                </div>
-            </div>
-            <div className="col-2"> <input className='input-payment' type="text" placeholder="Exp. date" /> </div>
-            <div className="col-2"> <input className='input-payment' type="text" placeholder="CVV" /> </div>
-        </div> 
-        <p className='text-center mt-3'><button className="btn-primary btn btn-pay" onClick={()=>{
+
+
+
+        <p className='text-center mt-3'>
+        <StripeCheckout
+        token={onToken}
+        stripeKey="pk_test_51KISOjC1rUoqBsLfzZg43azPutLX76mg6PtXYD3pkMs7l51e0WKC16Jn3Pva8fz85CufmmdMk4rpm2bqE0aKlMAZ00E9yhPo6j"
+        name="Card information"
+        currency="USD"
+        >
+      <button className="btn-primary btn btn-pay" >Payment method</button>
+    </StripeCheckout>
+        {/* <button className="btn-primary btn btn-pay" onClick={()=>{
 
         if(balance < 0){setError('Username is incorrect'); return;}
 
@@ -117,10 +143,8 @@ function Payment() {
                                     window.location.reload();
                                   }
                                 });
-                                
-
-
-}}><b>Add card</b></button></p>
+}}><b>Add card</b></button> */}
+</p>
     </div>
 </div>
   
@@ -132,3 +156,4 @@ function Payment() {
 }
 
 export default Payment;
+
