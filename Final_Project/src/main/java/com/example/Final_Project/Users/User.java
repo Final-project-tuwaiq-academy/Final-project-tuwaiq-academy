@@ -1,6 +1,8 @@
 package com.example.Final_Project.Users;
 
 import javax.persistence.*;
+import com.example.Final_Project.Role.*;
+import java.util.*;
 
 
 @Entity
@@ -10,23 +12,40 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int user_id;
+
+    @Column(unique=true)
     private String user_name;
-    private int phone;
+
+    private String phone;
+
+    @Column(unique=true)
     private String email;
+
     private String Password;
     private float balance;
+    private String img;
 
 
     public User() {
     }
 
-    public User(int user_id, String user_name, int phone, String email, String password, float balance) {
+    public User(int user_id, String user_name, String phone, String email, String password, float balance, String img, List<Role> roles) {
         this.user_id = user_id;
         this.user_name = user_name;
         this.phone = phone;
         this.email = email;
-        this.Password = password;
+        Password = password;
         this.balance = balance;
+        this.img = img;
+
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public float getBalance() {
@@ -53,11 +72,11 @@ public class User {
         this.user_name = user_name;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

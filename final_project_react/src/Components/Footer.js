@@ -7,30 +7,28 @@ function Footer() {
     <div className="row">
       <div className="col-sm-12 col-md-6">
         <h6>About</h6>
-        <p className="text-justify">What is an online auction?
-The electronic auction platform is one of the smart solutions developed and operated by Thiqa Company, which enables those interested in auctions to participate in auctions electronically without the need to come to the auction site and complete all financial transactions safely and electronically and in accordance with the laws of holding auctions, buying and selling in the Kingdom of Saudi Arabia. The platform serves government and private agencies in liquidating their assets and managing auctions electronically.</p>
+        <p className="text-justify">Online auction is a worldwide marketplace with treasures waiting to be discovered, whether you're an avid collector or first-time visitor.
+
+By hosting thousands of auctions in real time via the Internet, the site allows unprecedented access to remote sales, and savvy bidders can often land desired items at very desirable prices.</p>
       </div>
 
       <div className="col-xs-6 col-md-3">
         <h6>Categories</h6>
         <ul className="footer-links">
-          <li><a href="http://scanfcode.com/category/c-language/">C</a></li>
-          <li><a href="http://scanfcode.com/category/front-end-development/">UI Design</a></li>
-          <li><a href="http://scanfcode.com/category/back-end-development/">PHP</a></li>
-          <li><a href="http://scanfcode.com/category/java-programming-language/">Java</a></li>
-          <li><a href="http://scanfcode.com/category/android/">Android</a></li>
-          <li><a href="http://scanfcode.com/category/templates/">Templates</a></li>
+          <li><a href="/auctions">All Auctions</a></li>
+          <li><a href="/auctions">Current Auction</a></li>
+          <li><a href="/auctions">Upcoming Auction</a></li>
+          <li><a href="/auctions">Closed Auction</a></li>
         </ul>
       </div>
 
       <div className="col-xs-6 col-md-3">
         <h6>Quick Links</h6>
         <ul className="footer-links">
-          <li><a href="http://scanfcode.com/about/">About Us</a></li>
-          <li><a href="http://scanfcode.com/contact/">Contact Us</a></li>
-          <li><a href="http://scanfcode.com/contribute-at-scanfcode/">Contribute</a></li>
-          <li><a href="http://scanfcode.com/privacy-policy/">Privacy Policy</a></li>
-          <li><a href="http://scanfcode.com/sitemap/">Sitemap</a></li>
+        <li><a href="/">Home</a></li>
+          <li><a href="/auctions">Auctions</a></li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/sign_up">Sign up</a></li>
         </ul>
       </div>
     </div>

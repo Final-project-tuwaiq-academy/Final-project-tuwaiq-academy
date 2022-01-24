@@ -22,7 +22,7 @@ public class Post_Price {
     @JoinColumn(name = "user_id")
     private User user_id;
 
-    private int price;
+    private double price;
 
     public Post_Price() {
     }
@@ -58,11 +58,11 @@ public class Post_Price {
         this.user_id = user_id;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }

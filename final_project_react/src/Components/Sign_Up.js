@@ -1,8 +1,6 @@
 import '../App.css';
 import axios from 'axios'
-import { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
 
 function Sign_Up() {
 
@@ -10,10 +8,8 @@ function Sign_Up() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [rePassword, setRePassword] = useState('');
   const [error, setError] = useState('');
-
-  const navigate = useNavigate();
-
 
 
   return (
@@ -33,28 +29,28 @@ function Sign_Up() {
   <div  className='login_div_2'>
   <p className='error_login'>{error}</p>
   <div className="mb-3">
-    <label htmlFor="exampleInputEmail1" className="form-label text-white"><b>UserName</b></label>
+    <label htmlFor="exampleInputEmail1" className="form-label text-white">UserName</label>
     <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={(e)=>{setUserName(e.target.value)}}/>
   </div>
   <div className="mb-3">
-    <label htmlFor="exampleInputPassword1" className="form-label text-white"><b>Email address</b></label>
+    <label htmlFor="exampleInputPassword1" className="form-label text-white">Email address</label>
     <input type="email" className="form-control" id="exampleInputPassword1"  onChange={(e)=>{setEmail(e.target.value)}}/>
   </div>
   <div className="mb-3">
-    <label htmlFor="exampleInputPassword1" className="form-label text-white"><b>Phone</b></label>
+    <label htmlFor="exampleInputPassword1" className="form-label text-white">Phone</label>
     <input type="text" className="form-control" id="exampleInputPassword1"  onChange={(e)=>{setPhone(e.target.value)}}/>
   </div>
   <div className="mb-3">
-    <label htmlFor="exampleInputPassword1" className="form-label text-white"><b>Password</b></label>
+    <label htmlFor="exampleInputPassword1" className="form-label text-white">Password</label>
     <input type="password" className="form-control" id="exampleInputPassword1"  onChange={(e)=>{setPassword(e.target.value)}}/>
+  </div>
+  <div>
+    <label htmlFor="exampleInputPassword1" className="form-label text-white">Re-Password</label>
+    <input type="password" className="form-control" id="exampleInputPassword1"  onChange={(e)=>{setRePassword(e.target.value)}}/>
   </div>
 
   <p className='btn_login'><button type="button" className="btn btn-primary nohover mt-5" onClick={()=>{
-    if(userName === ''){setError('Username is incorrect'); return;}
-    if(email === ''){setError('Email is incorrect'); return;}
-    if(phone === ''){setError('Phone is incorrect'); return;}
-    if(password === ''){setError('password is incorrect'); return;}
-
+    if(password !== rePassword){setError('There is no match in the password'); return;}
         const user = {
           "user_name":userName,
           "phone":phone,
@@ -62,8 +58,15 @@ function Sign_Up() {
           "password":password}
 
 axios.post(`http://localhost:8080/users`, user)
-.then(response => {});
-setError('')
+.then(response => {
+if(response.data !== 'ok'){
+  setError(response.data);
+  return
+}else{  window.location = '/login'}
+});
+
+
+
   }}>Sign Up</button></p>
   </div>
   </div>

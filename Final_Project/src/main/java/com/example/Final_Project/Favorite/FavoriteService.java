@@ -28,12 +28,12 @@ public class FavoriteService {
         return favoriteRepository.findAll();
     }
 
-    public Favorite getFavorite(String id){
+    public List<Favorite> getFavorite(String id){
         int favorite_id = Integer.valueOf(id);
-        return favoriteRepository.findById(favorite_id).orElse(null);
+        return favoriteRepository.findAllByUser_id(favorite_id);
     }
 
-    public Favorite addFavorite(Favorite favorite, int user_id, int post_id){
+    public Favorite addFavorite(Favorite favorite, int post_id, int user_id){
         User user = userRepository.findById(user_id).orElse(null);
         Post post = postRepository.findById(post_id).orElse(null);
 

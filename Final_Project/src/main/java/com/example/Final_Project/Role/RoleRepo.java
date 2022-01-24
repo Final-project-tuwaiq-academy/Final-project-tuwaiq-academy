@@ -1,7 +1,6 @@
-package com.example.Final_Project.Users;
+package com.example.Final_Project.Role;
 
 import com.example.Final_Project.Comments.Comment;
-import com.example.Final_Project.Role.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,12 +11,12 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
-    @Query("select u from User u where u.user_name = :#{#userName}")
-    User findByUser_name(@Param("userName") String userName);
+public interface RoleRepo extends JpaRepository<Role, Long> {
+    @Query("select u from Role u where u.user.user_id = :#{#id}")
+    Role findByUser_User_id(@Param("id") int id);
 
-    @Query("select u from User u where u.email = :#{#Email}")
-    User findByEmail(@Param("Email") String Email);
-
-
+    @Transactional
+    @Modifying
+    @Query("delete from Role l where l.user.user_id =:#{#id}")
+    void deleteByUser(@Param("id") int id);
 }

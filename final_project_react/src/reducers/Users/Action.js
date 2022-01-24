@@ -4,6 +4,12 @@ export const addUsers = (user) => {
       payload: user,
     };
   };
+  export const addToken = (token) => {
+    return {
+      type: "ADD_TOKEN",
+      payload: token,
+    };
+  };
 
   export const removeUsers = () => {
     return {

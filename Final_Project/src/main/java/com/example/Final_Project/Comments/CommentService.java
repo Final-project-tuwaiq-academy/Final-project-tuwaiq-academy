@@ -33,14 +33,13 @@ public class CommentService {
     }
 
     public List<Comment>  getCommentsInPost(String id){
-//        int post_id = Integer.valueOf(id);
 
         return commentRepository.findAllByCAndComment_id(Integer.valueOf(id));
     }
 
 
 
-    public Comment addComment(Comment comment, int user_id, int post_id){
+    public Comment addComment(Comment comment, int post_id, int user_id){
         User user = userRepository.findById(user_id).orElse(null);
         Post post = postRepository.findById(post_id).orElse(null);
 

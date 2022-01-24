@@ -31,7 +31,7 @@ public class Post_PriceService {
 
     public Post_Price getPost_Price(String id){
         int post_Price_id = Integer.valueOf(id);
-        return post_PriceRepository.findById(post_Price_id).orElse(null);
+        return post_PriceRepository.findByPost_id(post_Price_id);
     }
 
     public Post_Price addPost_Price(Post_Price post_Price, int post_id, int user_id){
@@ -51,11 +51,12 @@ public class Post_PriceService {
     }
 
     public void updatePost_Price(String id, Post_Price data){
-        int user_id = Integer.valueOf(id);
-        Post_Price post_Price = post_PriceRepository.findById(user_id).orElse(null);
+        int post_price_id = Integer.valueOf(id);
+        Post_Price post_Price = post_PriceRepository.findByPost_id(post_price_id);
+        User user = userRepository.findById(data.getUser().getUser_id()).orElse(null);
 
         if (post_Price != null){
-            post_Price.setUser(data.getUser());
+            post_Price.setUser(user);
             post_Price.setPrice(data.getPrice());
             post_PriceRepository.save(post_Price);
         }
